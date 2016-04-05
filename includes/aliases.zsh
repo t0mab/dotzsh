@@ -139,6 +139,7 @@ alias ta='tmux attach -t'
 alias tn='tmux new -s'
 alias tl='tmux ls'
 alias tk='tmux kill-session -t'
+alias tmux='TERM=screen-256color-bce tmux' # force tmux in 256 colors 
 
 # -------------------------------------------------------------------
 # Misc stuff
@@ -158,8 +159,6 @@ alias turn-off-screen='xset dpms force off' # force to turn off screens
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'
 alias weather='echo -n "Meteo Strasbourg  " | pv -qL 20 && weatherman  "Strasbourg,France" '
 
-# Force tmux to use 256 colors
-alias tmux='TERM=screen-256color-bce tmux'
 
 # alias to cat this file to display
 alias acat='< ~/.zsh/aliases.zsh'
