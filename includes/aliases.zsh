@@ -133,9 +133,16 @@ alias venvproject="setvirtualenvproject $VIRTUAL_ENV $(pwd)"
 alias scc='php symfony cc'
 
 # -------------------------------------------------------------------
+# Tmux relatives 
+# -------------------------------------------------------------------
+alias ta='tmux attach -t'
+alias tn='tmux new -s'
+alias tl='tmux ls'
+alias tk='tmux kill-session -t'
+
+# -------------------------------------------------------------------
 # Misc stuff
 # -------------------------------------------------------------------
-alias amix='alsamixer'
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias 'rm=rm -i' # make rm command (potentially) less destructive
 alias 'vi=vim' # using vim everywhere
