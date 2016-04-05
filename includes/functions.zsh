@@ -4,7 +4,7 @@
 # compressed file expander
 # (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
 # -------------------------------------------------------------------
-ex() {
+function ex() {
     if [[ -f $1 ]]; then
         case $1 in
           *.tar.bz2) tar xvjf $1;;
@@ -32,7 +32,7 @@ ex() {
 # any function from http://onethingwell.org/post/14669173541/any
 # search for running processes
 # -------------------------------------------------------------------
-any() {
+function any() {
     emulate -L zsh
     unsetopt KSH_ARRAYS
     if [[ -z "$1" ]] ; then
@@ -46,7 +46,7 @@ any() {
 # -------------------------------------------------------------------
 # display a neatly formatted path
 # -------------------------------------------------------------------
-path() {
+function path() {
   echo $PATH | tr ":" "\n" | \
     awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
            sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
@@ -62,7 +62,7 @@ path() {
 if [[ $IS_MAC -eq 1 ]]; then
 
     # view man pages in Preview
-    pman() { ps=`mktemp -t manpageXXXX`.ps ; man -t $@ > "$ps" ; open "$ps" ; }
+    function pman() { ps=`mktemp -t manpageXXXX`.ps ; man -t $@ > "$ps" ; open "$ps" ; }
 fi
 
 # -------------------------------------------------------------------
@@ -85,8 +85,8 @@ function myip() {
 # -------------------------------------------------------------------
 # (s)ave or (i)nsert a directory.
 # -------------------------------------------------------------------
-s() { pwd > ~/.save_dir ; }
-i() { cd "$(cat ~/.save_dir)" ; }
+function s() { pwd > ~/.save_dir ; }
+function i() { cd "$(cat ~/.save_dir)" ; }
 
 # Tmux tool
 tm()
@@ -103,7 +103,7 @@ tm()
 # -------------------------------------------------------------------
 # htpasswd without htpasswd
 # -------------------------------------------------------------------
-nohtpasswd()
+function nohtpasswd()
 {
     [ ! $# -eq 2 ] && { echo -e "Usage: nohtpasswd file_name user"; return 1; }
     echo "password:"
@@ -139,7 +139,7 @@ function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 # -------------------------------------------------------------------
 # random commit msg
 # -------------------------------------------------------------------
-gitrandomc() {
+function gitrandomc() {
     git commit -m"`curl -s http://whatthecommit.com/index.txt`"
  }
 
@@ -153,7 +153,7 @@ function gitretag() {
 # -------------------------------------------------------------------
 #
 # -------------------------------------------------------------------
-gitworkdone(){
+function gitworkdone(){
         default="1 day ago"
             git log --committer=$1 --pretty=format:"%Cgreen%ar (%h)%n%Creset> %s %b%n" --since="${2:-$default}" --no-merges
 }
@@ -164,7 +164,7 @@ gitworkdone(){
 # Usage initproject project_name [ -p python_version -d django_version]
 # example initproject -p 3 -d 1.8.4
 # -------------------------------------------------------------------
-initproject() {
+function initproject() {
     unset PYTHON_VERSION
     unset PYTHON_PATH
     unset DJANGO_VERSION
@@ -207,4 +207,120 @@ initproject() {
         chmod +x manage.py
         pip install -r requirements/dev.txt
     fi
+}
+
+# -------------------------------------------------------------------
+# download entire website
+# -------------------------------------------------------------------
+function getsite() {
+    wget --random-wait -r -p -e robots=off -U mozilla $1
+}
+
+# -------------------------------------------------------------------
+# ssh via home
+# -------------------------------------------------------------------
+function tssh() {
+    ssh -t $1 ssh $2
+}
+
+# -------------------------------------------------------------------
+# copy && follow
+# -------------------------------------------------------------------
+function cpf() {
+   cp "$@" && goto "$_";
+}
+
+# -------------------------------------------------------------------
+# move && follow
+# -------------------------------------------------------------------
+function mvf() {
+   mv "$@" && goto "$_";
+}
+
+# -------------------------------------------------------------------
+# mkdir && follow
+# -------------------------------------------------------------------
+function mkdirf() {
+   mkdir -vp "$@" && cd "$_";
+}
+
+# -------------------------------------------------------------------
+# colorized man pages
+# -------------------------------------------------------------------
+function man() {
+   env \
+      LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+      LESS_TERMCAP_md=$(printf "\e[1;31m") \
+      LESS_TERMCAP_me=$(printf "\e[0m") \
+      LESS_TERMCAP_se=$(printf "\e[0m") \
+      LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+      LESS_TERMCAP_ue=$(printf "\e[0m") \
+      LESS_TERMCAP_us=$(printf "\e[1;32m") \
+      man "$@"
+}
+
+# -------------------------------------------------------------------
+# colored find
+# NOTE: searches current tree recrusively.
+# -------------------------------------------------------------------
+function f() {
+   find . -iregex ".*$@.*" -printf '%P\0' | xargs -r0 ls --color=auto -1d
+}
+
+# -------------------------------------------------------------------
+# create tar archive
+# -------------------------------------------------------------------
+function mktar() {
+   tar cvf  "${1%%/}.tar" "${1%%/}/";
+}
+
+# -------------------------------------------------------------------
+# create tar.gz archive
+# -------------------------------------------------------------------
+function mktgz() {
+   tar cvzf "${1%%/}.tar.gz"  "${1%%/}/";
+}
+
+# -------------------------------------------------------------------
+# create tar.bz2 archive
+# -------------------------------------------------------------------
+function mktbz() {
+   tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";
+}
+
+# -------------------------------------------------------------------
+# print mkv information
+# -------------------------------------------------------------------
+function mkv() {
+   [[ -n "$@" ]] || {
+      echo "usage : mkv [file]"
+      return
+   }
+   mkvmerge -i "$@"
+}
+
+# -------------------------------------------------------------------
+# remux MKV to use only 1 audio && subtible track
+# -------------------------------------------------------------------
+function remux() {
+   [[ -n "$1" ]] && [[ -n "$2" ]] && [[ -n "$3" ]] && [[ -n "$4" ]] || {
+      echo "usage : remux [output] [input] [audio track to keep] [subtible track to keep]"
+      return
+   }
+   mkvmerge -o "$1" -d 1 --audio-tracks "$3" --subtitle-tracks "$4" "$2"
+}
+
+# -------------------------------------------------------------------
+# batch whole directory with this
+# -------------------------------------------------------------------
+function bremux() {
+   local FILTER="*.mkv"
+   [[ -n "$1" ]] && [[ -n "$2" ]] || {
+      echo "usage : bremux [audio track] [subtible track] [filter]"
+      return
+   }
+   [[ -n "$3" ]] && FILTER="$3"
+   for i in $FILTER; do
+      remux "[REMUX]$i" "$i" "$1" "$2"
+   done
 }

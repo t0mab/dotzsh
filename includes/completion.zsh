@@ -9,8 +9,12 @@ zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
 zstyle ':vcs_info:*' enable git #svn cvs
 
 # Enable completion caching, use rehash to clear
+zstyle ':completion:*:paths' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
+
+# rehash
+zstyle ':completion:*' rehash true
 
 # Fallback to built in ls colors
 zstyle ':completion:*' list-colors ''
@@ -40,11 +44,17 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # formatting and messages
 zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
+
+zstyle ':completion:*:descriptions' format $'%{\e[0;33m%} %B%d%b%{\e[0m%}'
+
+#zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*:prefix:*' add-space true
 
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'

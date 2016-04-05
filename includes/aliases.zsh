@@ -135,16 +135,19 @@ alias scc='php symfony cc'
 # -------------------------------------------------------------------
 # Misc stuff
 # -------------------------------------------------------------------
+alias amix='alsamixer'
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias 'rm=rm -i' # make rm command (potentially) less destructive
 alias 'vi=vim' # using vim everywhere
 alias bcat='pygmentize -O style=monokai -f console256 -g'
 alias ccat='pygmentize -O bg=dark'
+alias c='clear'
+alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
 alias pdf='zathura'
-
-# Weathe
+alias turn-off-screen='xset dpms force off' # force to turn off screens
+# Weather
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'
 alias weather='echo -n "Meteo Strasbourg  " | pv -qL 20 && weatherman  "Strasbourg,France" '
 

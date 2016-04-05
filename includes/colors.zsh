@@ -22,3 +22,7 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 
 export CLICOLOR=1
 #export LS_COLORS=exfxcxdxbxegedabagacad
+#
+
+eval $( dircolors -b ~/.dircolors )
+
