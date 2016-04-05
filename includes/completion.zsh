@@ -62,4 +62,9 @@ zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:do
 zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain hosts-host hosts-ipaddr
 zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
 zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
+# When completing the 'kill' command all running processes will be shown, not
+# only sub processes
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+# Color coding suggestions for the 'kill' command
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle '*' single-ignored show
