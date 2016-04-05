@@ -6,7 +6,7 @@
 
 files=(
         checks.zsh
-        colors.zsh
+        functions.zsh
         setopt.zsh
         exports.zsh
         zgen.zsh
@@ -14,9 +14,9 @@ files=(
         completion.zsh
         aliases.zsh
         bindkeys.zsh
-        functions.zsh
         history.zsh
         directories.zsh
+        colors.zsh
         )
 
 for file in ${files[*]}

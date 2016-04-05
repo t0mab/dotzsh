@@ -333,7 +333,7 @@ function bremux() {
 #   -c  only checks for external commands
 #   -g  does the usual tests and also checks for global aliases
 # -------------------------------------------------------------------
-check_com() {
+function check_com() {
     emulate -L zsh
     local -i comonly gatoo
 

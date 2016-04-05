@@ -34,4 +34,4 @@ export LC_COLLATE=C
 # Virtual Environment Stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev/django
-source /usr//bin/virtualenvwrapper.sh
+check_com -c virtualenvwrapper.sh && source /usr/bin/virtualenvwrapper.sh
