@@ -31,7 +31,28 @@ export BROWSER=chromium
 export LC_COLLATE=C
 
 
-# Virtual Environment Stuff
+# Virtual Environment Stuff major part stolen from oh-my-zsh venv plugin
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev/django
-check_com -c virtualenvwrapper.sh && source /usr/bin/virtualenvwrapper.sh
+
+virtualenvwrapper='virtualenvwrapper.sh'
+
+if (( $+commands[$virtualenvwrapper] )); then
+  function {
+    setopt local_options
+    unsetopt equals
+    source ${${virtualenvwrapper}:c}
+  }
+elif [[ -f "/etc/bash_completion.d/virtualenvwrapper" ]]; then
+  function {
+    setopt local_options
+    unsetopt equals
+    virtualenvwrapper="/etc/bash_completion.d/virtualenvwrapper"
+    source "/etc/bash_completion.d/virtualenvwrapper"
+  }
+fi
+
+if [[ "$WORKON_HOME" == "" ]]; then
+  print "[oh-my-zsh] \$WORKON_HOME is not defined so virtualenvwrapper will not work" >&2
+  return
+fi
