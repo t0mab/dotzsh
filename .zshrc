@@ -28,3 +28,12 @@ done
 if [[ -n "$BENCHMARK" ]] ;
     then zprof > "$HOME/.zsh/.zgen_benchmark"
 fi
+
+SSH_ENV="$HOME/.ssh/env"
+
+if [ -f $SSH_ENV ]; then
+	. $SSH_ENV > /dev/null
+	ps $SSH_AGENT_PID | grep -q ssh-agent || start-ssh-agent
+else
+	start-ssh-agent
+fi

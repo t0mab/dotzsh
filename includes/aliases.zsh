@@ -202,8 +202,7 @@ OS="`uname`"
 case $OS in
   'Linux')
     OS='Linux'
-    alias ls='ls --color=auto'
-
+    alias ls="ls --group-directories-first --color=tty --quoting-style=literal"
     #ubuntu relative
     alias apt-foreign="aptitude search ~o"
     alias aptmaj="sudo apt-fast update && sudo apt-fast upgrade -y && sudo apt-fast clean"
