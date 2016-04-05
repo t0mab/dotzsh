@@ -24,5 +24,4 @@ export CLICOLOR=1
 #export LS_COLORS=exfxcxdxbxegedabagacad
 #
 
-eval $( dircolors -b ~/.dircolors )
-
+check_com -c dircolors && eval $( dircolors -b ~/.dircolors )
