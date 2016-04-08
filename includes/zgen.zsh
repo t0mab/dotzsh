@@ -11,6 +11,7 @@ if ! zgen saved; then
     zgen load zsh-users/zsh-syntax-highlighting
     zgen oh-my-zsh plugins/sudo
     zgen load unixorn/autoupdate-zgen
+    zgen oh-my-zsh plugins/tmux
 
     # OS specific plugins
     if [[ $CURRENT_OS == 'OSX' ]]; then
