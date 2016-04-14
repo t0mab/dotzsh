@@ -49,11 +49,11 @@ function any() {
 function path() {
   echo $PATH | tr ":" "\n" | \
     awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
-           sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
-           sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
-           sub(\"/sbin\",  \"$fg_no_bold[magenta]/sbin$reset_color\"); \
-           sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
-           print }"
+            sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
+            sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
+            sub(\"/sbin\",  \"$fg_no_bold[magenta]/sbin$reset_color\"); \
+            sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
+            print }"
 }
 
 # -------------------------------------------------------------------
@@ -141,7 +141,7 @@ function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 # -------------------------------------------------------------------
 function gitrandomc() {
     git commit -m"`curl -s http://whatthecommit.com/index.txt`"
- }
+}
 
 # -------------------------------------------------------------------
 # git retag
@@ -227,28 +227,28 @@ function tssh() {
 # copy && follow
 # -------------------------------------------------------------------
 function cpf() {
-   cp "$@" && goto "$_";
+    cp "$@" && goto "$_";
 }
 
 # -------------------------------------------------------------------
 # move && follow
 # -------------------------------------------------------------------
 function mvf() {
-   mv "$@" && goto "$_";
+    mv "$@" && goto "$_";
 }
 
 # -------------------------------------------------------------------
 # mkdir && follow
 # -------------------------------------------------------------------
 function mkdirf() {
-   mkdir -vp "$@" && cd "$_";
+    mkdir -vp "$@" && cd "$_";
 }
 
 # -------------------------------------------------------------------
 # colorized man pages
 # -------------------------------------------------------------------
 function man() {
-   env \
+    env \
       LESS_TERMCAP_mb=$(printf "\e[1;31m") \
       LESS_TERMCAP_md=$(printf "\e[1;31m") \
       LESS_TERMCAP_me=$(printf "\e[0m") \
@@ -264,65 +264,65 @@ function man() {
 # NOTE: searches current tree recrusively.
 # -------------------------------------------------------------------
 function f() {
-   find . -iregex ".*$@.*" -printf '%P\0' | xargs -r0 ls --color=auto -1d
+    find . -iregex ".*$@.*" -printf '%P\0' | xargs -r0 ls --color=auto -1d
 }
 
 # -------------------------------------------------------------------
 # create tar archive
 # -------------------------------------------------------------------
 function mktar() {
-   tar cvf  "${1%%/}.tar" "${1%%/}/";
+    tar cvf  "${1%%/}.tar" "${1%%/}/";
 }
 
 # -------------------------------------------------------------------
 # create tar.gz archive
 # -------------------------------------------------------------------
 function mktgz() {
-   tar cvzf "${1%%/}.tar.gz"  "${1%%/}/";
+    tar cvzf "${1%%/}.tar.gz"  "${1%%/}/";
 }
 
 # -------------------------------------------------------------------
 # create tar.bz2 archive
 # -------------------------------------------------------------------
 function mktbz() {
-   tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";
+    tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";
 }
 
 # -------------------------------------------------------------------
 # print mkv information
 # -------------------------------------------------------------------
 function mkv() {
-   [[ -n "$@" ]] || {
+    [[ -n "$@" ]] || {
       echo "usage : mkv [file]"
       return
-   }
-   mkvmerge -i "$@"
+    }
+    mkvmerge -i "$@"
 }
 
 # -------------------------------------------------------------------
 # remux MKV to use only 1 audio && subtible track
 # -------------------------------------------------------------------
 function remux() {
-   [[ -n "$1" ]] && [[ -n "$2" ]] && [[ -n "$3" ]] && [[ -n "$4" ]] || {
+    [[ -n "$1" ]] && [[ -n "$2" ]] && [[ -n "$3" ]] && [[ -n "$4" ]] || {
       echo "usage : remux [output] [input] [audio track to keep] [subtible track to keep]"
       return
-   }
-   mkvmerge -o "$1" -d 1 --audio-tracks "$3" --subtitle-tracks "$4" "$2"
+    }
+    mkvmerge -o "$1" -d 1 --audio-tracks "$3" --subtitle-tracks "$4" "$2"
 }
 
 # -------------------------------------------------------------------
 # batch whole directory with this
 # -------------------------------------------------------------------
 function bremux() {
-   local FILTER="*.mkv"
-   [[ -n "$1" ]] && [[ -n "$2" ]] || {
-      echo "usage : bremux [audio track] [subtible track] [filter]"
-      return
-   }
-   [[ -n "$3" ]] && FILTER="$3"
-   for i in $FILTER; do
-      remux "[REMUX]$i" "$i" "$1" "$2"
-   done
+    local FILTER="*.mkv"
+    [[ -n "$1" ]] && [[ -n "$2" ]] || {
+        echo "usage : bremux [audio track] [subtible track] [filter]"
+        return
+    }
+        [[ -n "$3" ]] && FILTER="$3"
+        for i in $FILTER; do
+            remux "[REMUX]$i" "$i" "$1" "$2"
+        done
 }
 
 # -------------------------------------------------------------------
@@ -376,8 +376,8 @@ function check_com() {
 # Start ssh-agent
 # -------------------------------------------------------------------
 function start-ssh-agent {
-	/usr/bin/ssh-agent | sed 's/^echo/#echo/' > $SSH_ENV
-	chmod 600 $SSH_ENV
-	. $SSH_ENV > /dev/null
-	/usr/bin/ssh-add
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > $SSH_ENV
+    chmod 600 $SSH_ENV
+    . $SSH_ENV > /dev/null
+    /usr/bin/ssh-add
 }

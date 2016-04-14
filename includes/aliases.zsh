@@ -154,6 +154,7 @@ alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
 alias pdf='zathura'
+alias t='todo.sh'
 alias turn-off-screen='xset dpms force off' # force to turn off screens
 # Weather
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'
