@@ -26,3 +26,6 @@ if (( $+commands[fortune] )); then
     print
   fi
 fi
+
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+

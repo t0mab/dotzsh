@@ -159,7 +159,10 @@ alias turn-off-screen='xset dpms force off' # force to turn off screens
 # Weather
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'
 alias weather='echo -n "Meteo Strasbourg  " | pv -qL 20 && weatherman  "Strasbourg,France" '
-
+alias urldecode='python2.7 -c "import sys, urllib as ul; \
+        print ul.unquote_plus(sys.argv[1])"'
+alias urlencode='python2.7 -c "import sys, urllib as ul; \
+        print ul.quote_plus(sys.argv[1])"'
 
 # alias to cat this file to display
 alias acat='< ~/.zsh/aliases.zsh'
