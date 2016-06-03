@@ -25,7 +25,7 @@ alias ll='ls -GFhl' # Same as above, but in long listing format
 alias lst='ls -AlFhrt'
 alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
 alias 'dus=du -sckx * | sort -nr' #directories sorted by size
-
+alias dirsize='du -sch' # Show size of current directory
 alias 'wordy=wc -w * | sort | tail -n10' # sort files in current directory by the number of words they contain
 alias 'filecount=find . -type f | wc -l' # number of files (not directories)
 alias mkdir='mkdir -p -v'
@@ -69,7 +69,7 @@ alias mysql='mysql -u root'
 alias mysqladmin='mysqladmin -u root'
 
 # -------------------------------------------------------------------
-# ome devvm start, stop, ssh, and mount, vagrant stuff
+# devvm start, stop, ssh, and mount, vagrant stuff
 # -------------------------------------------------------------------
 alias 'startvm=VBoxHeadless --startvm devvm'
 alias 'stopvm=VBoxManage controlvm devvm poweroff'
@@ -103,7 +103,7 @@ alias grr='git remote rm'
 alias gs='git status'
 alias gta='git tag -a -m'
 alias gv='git log --pretty=format:'%s' | cut -d " " -f 1 | sort | uniq -c | sort -nr'
-
+alias g='git'
 # leverage aliases from ~/.gitconfig
 alias gh='git hist'
 alias gt='git today'
@@ -153,8 +153,10 @@ alias c='clear'
 alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
+alias open_ports="lsof -i -P | grep -i 'listen'"
+alias path='echo $PATH | tr -s ":" "\n"'
 alias pdf='zathura'
-alias t='todo.sh'
+alias t='todo.sh -d ~/.todo/config'
 alias turn-off-screen='xset dpms force off' # force to turn off screens
 # Weather
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'

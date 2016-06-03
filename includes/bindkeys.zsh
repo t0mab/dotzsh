@@ -15,4 +15,6 @@ bindkey "^F"      forward-char                                  # ctrl-f
 bindkey "^B"      backward-char                                 # ctrl-b
 bindkey "^R"      history-incremental-pattern-search-backward   # ctrl-r
 bindkey '^W'      backward-kill-word                            # ctrl-w  
+#bindkey "^Y"      accept-and-hold                               # ctrl-y
+bindkey "^N"      insert-last-word                              # ctrl-n  
 #bindkey -v   # Default to standard vi bindings, regardless of editor string

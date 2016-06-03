@@ -70,3 +70,5 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
