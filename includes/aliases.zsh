@@ -260,7 +260,11 @@ case $OS in
     alias sstart='sudo systemctl start $@'
     alias sstatus='sudo systemctl status $@'
     alias sstop='sudo systemctl stop $@'
-
+    ### Systemd ###
+    alias start='sudo systemctl start'
+    alias stop='sudo systemctl stop'
+    alias restart='sudo systemctl restart'
+    alias status='systemctl status'
 
     #misc
     #
@@ -279,7 +283,7 @@ case $OS in
     alias boot="echo -n Boot Time | pv -qL 10 && systemd-analyze | ccze -A"
     alias units="echo -n Listing Units | pv -qL 10 && systemctl list-units | ccze -A"
     alias i3edit="vi ~/.i3/config"
-
+    alias vpnuds="sudo openconnect vpn.u-strasbg.fr"
     ;;
   'FreeBSD')
     OS='FreeBSD'
