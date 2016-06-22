@@ -107,6 +107,7 @@ alias g='git'
 # leverage aliases from ~/.gitconfig
 alias gh='git hist'
 alias gt='git today'
+alias gitcountlines='git ls-files | git ls-files | xargs file | grep "ASCII" | cut -d : -f 1 | xargs wc -l'
 
 # curiosities
 # gsh shows the number of commits for the current repos for all developers

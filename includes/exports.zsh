@@ -8,7 +8,7 @@ export PATH=$PATH~/bin:/usr/local/bin:/usr/local/sbin:~/bin:~/Scripts
 # export JAVA_HOME=/dev/null
 
 # Setup terminal, and turn on colors
-export TERM=xterm-256color
+#export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=Gxfxcxdxbxegedabagacad
 
