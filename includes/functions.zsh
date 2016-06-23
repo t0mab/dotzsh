@@ -446,9 +446,6 @@ function git_stats {
 #
 # -------------------------------------------------------------------
 function git_info() {
-    about 'overview for your git repo'
-    group 'git'
-
     if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
         # print informations
         echo "git repo overview"
