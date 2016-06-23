@@ -83,12 +83,22 @@ alias vacopyid='ssh-copy-id vagrant@192.168.1.2 && ssh-copy-id vagrant@192.168.1
 # Git
 # -------------------------------------------------------------------
 alias ga='git add'
+alias gall='git add -A'
 alias gb='git branch'
-alias gc='git checkout'
+alias gc='git commit'
+alias gco='git checkout'
+alias gca='git commit -v -a'
 alias gcb='git checkout -b'
 alias gcl='git clone'
+alias gci='git commit --interactive'
+alias gcm='git commit -v -m'
 alias gd='git diff'
-alias gf='git reflog'
+alias gdel='git branch -D'
+alias gexport='git archive --format zip --output'
+alias gf='git fetch --all --prune'
+alias gft='git fetch --all --prune --tags'
+alias gfv='git fetch --all --prune --verbose'
+alias gftv='git fetch --all --prune --tags --verbose'
 alias gitclean='find . -maxdepth 2 -type d -name '.git' -print0 | while read -d ""; do (cd "$REPLY"; git gc); done'
 alias gitcountcommits="git log --pretty=format:'' | wc -l"
 alias gitsearch='git rev-list --all | xargs git grep -F'
@@ -134,13 +144,13 @@ alias venvproject="setvirtualenvproject $VIRTUAL_ENV $(pwd)"
 alias scc='php symfony cc'
 
 # -------------------------------------------------------------------
-# Tmux relatives 
+# Tmux relatives
 # -------------------------------------------------------------------
 alias ta='tmux attach -t'
 alias tn='tmux new -s'
 alias tl='tmux ls'
 alias tk='tmux kill-session -t'
-alias tmux='TERM=screen-256color-bce tmux' # force tmux in 256 colors 
+alias tmux='TERM=screen-256color-bce tmux' # force tmux in 256 colors
 
 # -------------------------------------------------------------------
 # Misc stuff
