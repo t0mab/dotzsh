@@ -177,6 +177,8 @@ alias urldecode='python2.7 -c "import sys, urllib as ul; \
 alias urlencode='python2.7 -c "import sys, urllib as ul; \
         print ul.quote_plus(sys.argv[1])"'
 
+#netstat -tulpn | grep -P ":80|443"
+
 # alias to cat this file to display
 alias acat='< ~/.zsh/aliases.zsh'
 alias fcat='< ~/.zsh/functions.zsh'

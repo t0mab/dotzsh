@@ -478,3 +478,18 @@ function git_info() {
 
     fi
 }
+
+search() {
+  find . -name "*$1*"
+}
+
+searchreplace () {
+	find proj -name "$1" -type f -exec sed -i -e "s/$2/$3/g" -- {} +
+}
+
+alarm() {
+  local N=$1; shift
+
+  (sleep $(( $(date --date="$N" +%s) - $(date +%s) )) && notify-send -u critical -i "/usr/share/icons/Paper/48x48/categories/preferences-system-time.svg" "Timer" "$@" && beep -l 50 -r 4 ) &
+  echo "timer set for $N"
+}
