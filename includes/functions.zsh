@@ -493,3 +493,16 @@ alarm() {
   (sleep $(( $(date --date="$N" +%s) - $(date +%s) )) && notify-send -u critical -i "/usr/share/icons/Paper/48x48/categories/preferences-system-time.svg" "Timer" "$@" && beep -l 50 -r 4 ) &
   echo "timer set for $N"
 }
+
+convertmpeg2mov() {
+  for i in *.MP4;
+  do name=`echo $i | cut -d'.' -f1`;
+    echo $name;
+    ffmpeg -i $i -sameq -vcodec mpeg4 $name.mov;
+  done
+}
+
+
+convert169() {
+  ffmpeg -i $1 -sameq -vcodec mpeg4 -acodec ac3 -aspect 16:9 -strict experimental 16-9-$1 Raw
+}
