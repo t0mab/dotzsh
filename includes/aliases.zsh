@@ -176,7 +176,7 @@ alias urldecode='python2.7 -c "import sys, urllib as ul; \
         print ul.unquote_plus(sys.argv[1])"'
 alias urlencode='python2.7 -c "import sys, urllib as ul; \
         print ul.quote_plus(sys.argv[1])"'
-
+alias atomplist="apm list --installed --bare | grep '^[^@]\+' -o" 
 #netstat -tulpn | grep -P ":80|443"
 
 # alias to cat this file to display
