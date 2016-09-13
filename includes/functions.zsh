@@ -502,7 +502,13 @@ convertmpeg2mov() {
   done
 }
 
-
 convert169() {
   ffmpeg -i $1 -sameq -vcodec mpeg4 -acodec ac3 -aspect 16:9 -strict experimental 16-9-$1 Raw
+}
+# -------------------------------------------------------------------
+# Find broken symbolic links 
+#
+# -------------------------------------------------------------------
+function findbrokenln() {
+  find ./ -type l -exec file {} \; |grep broken
 }
