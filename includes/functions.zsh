@@ -48,7 +48,7 @@ function any() {
 # display a neatly formatted path
 # -------------------------------------------------------------------
 function path() {
-  echo $PATH | tr ":" "\n" | \
+    echo $PATH | tr ":" "\n" | \
     awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
             sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
             sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
@@ -76,11 +76,11 @@ function nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2="";1') 
 # myIP address
 # -------------------------------------------------------------------
 function myip() {
-  ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
-  ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
-  ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
-  ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
-  ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
+    ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
+    ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
+    ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
+    ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
+    ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
 }
 
 # -------------------------------------------------------------------
@@ -92,13 +92,13 @@ function i() { cd "$(cat ~/.save_dir)" ; }
 # Tmux tool
 tm()
 {
-  if [ "$1" ];
-  then
-    tmux att -t $1 || tmux new -s $1
-  else
-    tmux ls | sed 's/:.*//'
+    if [ "$1" ];
+    then
+        tmux att -t $1 || tmux new -s $1
+    else
+        tmux ls | sed 's/:.*//'
     return
-  fi
+    fi
 }
 
 # -------------------------------------------------------------------
@@ -155,8 +155,8 @@ function gitretag() {
 #
 # -------------------------------------------------------------------
 function gitworkdone(){
-        default="1 day ago"
-            git log --committer=$1 --pretty=format:"%Cgreen%ar (%h)%n%Creset> %s %b%n" --since="${2:-$default}" --no-merges
+    default="1 day ago"
+        git log --committer=$1 --pretty=format:"%Cgreen%ar (%h)%n%Creset> %s %b%n" --since="${2:-$default}" --no-merges
 }
 
 # -------------------------------------------------------------------
@@ -167,52 +167,52 @@ function gitworkdone(){
 # -------------------------------------------------------------------
 function initproject () {
 
-        # TODO: be sure those variables are required by vitualenv* stuff
+    # TODO: be sure those variables are required by vitualenv* stuff
 
-        declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.4}
-        declare -g PYTHON_PATH=
-        declare -g PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
+    declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.4}
+    declare -g PYTHON_PATH=
+    declare -g PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
 
-        # TODO: split this message up: make it readable
+    # TODO: split this message up: make it readable
 
-        test -z $1 && {
-                echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3 -d 1.8.4 "
-                return 1
-        }
-
-        local PROJECT_NAME=$1
-        local DJANGO_VERSION=${DJANGO_VERSION:=Django>1.8,<1.9}
-
-        local ARGS=`getopt --long -o "p:d:" "$@"`
-        eval set -- "$ARGS"
-        while true
-        do
-                case "$1" in
-                        (-p) PYTHON_VERSION=$2
-                                shift 2 ;;
-                        (-d) DJANGO_VERSION=Django==$2
-                                shift 2 ;;
-                        (*) break ;;
-                esac
-        done
-
-        mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
-        workon $PROJECT_NAME
-        test -n ${VIRTUAL_ENV-} || {
-            echo no env, no gain >&2
+    test -z $1 && {
+            echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3 -d 1.8.4 "
             return 1
-        }
+    }
 
-        pip install "$DJANGO_VERSION"
+    local PROJECT_NAME=$1
+    local DJANGO_VERSION=${DJANGO_VERSION:=Django>1.8,<1.9}
 
-        django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
-        cd $PROJECT_NAME
-        setvirtualenvproject $VIRTUAL_ENV $PWD
-        echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
-        echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
-        workon $PROJECT_NAME
-        chmod +x manage.py
-        pip install -r requirements/dev.txt
+    local ARGS=`getopt --long -o "p:d:" "$@"`
+    eval set -- "$ARGS"
+    while true
+    do
+            case "$1" in
+                    (-p) PYTHON_VERSION=$2
+                            shift 2 ;;
+                    (-d) DJANGO_VERSION=Django==$2
+                            shift 2 ;;
+                    (*) break ;;
+            esac
+    done
+
+    mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
+    workon $PROJECT_NAME
+    test -n ${VIRTUAL_ENV-} || {
+        echo no env, no gain >&2
+        return 1
+    }
+
+    pip install "$DJANGO_VERSION"
+
+    django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+    cd $PROJECT_NAME
+    setvirtualenvproject $VIRTUAL_ENV $PWD
+    echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
+    echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
+    workon $PROJECT_NAME
+    chmod +x manage.py
+    pip install -r requirements/dev.txt
 }
 
 # -------------------------------------------------------------------
@@ -393,9 +393,9 @@ function start-ssh-agent {
 #   change-extension php py
 # -------------------------------------------------------------------
 function change-extension() {
-  foreach f (**/*.$1)
+    foreach f (**/*.$1)
     mv $f $f:r.$2
-  end
+    end
 }
 
 # -------------------------------------------------------------------
@@ -479,36 +479,61 @@ function git_info() {
 }
 
 search() {
-  find . -name "*$1*"
+    find . -name "*$1*"
 }
 
 searchreplace () {
-	find proj -name "$1" -type f -exec sed -i -e "s/$2/$3/g" -- {} +
+    find proj -name "$1" -type f -exec sed -i -e "s/$2/$3/g" -- {} +
 }
 
 alarm() {
-  local N=$1; shift
+    local N=$1; shift
 
-  (sleep $(( $(date --date="$N" +%s) - $(date +%s) )) && notify-send -u critical -i "/usr/share/icons/Paper/48x48/categories/preferences-system-time.svg" "Timer" "$@" && beep -l 50 -r 4 ) &
-  echo "timer set for $N"
+    (sleep $(( $(date --date="$N" +%s) - $(date +%s) )) && notify-send -u critical -i "/usr/share/icons/Paper/48x48/categories/preferences-system-time.svg" "Timer" "$@" && beep -l 50 -r 4 ) &
+    echo "timer set for $N"
 }
 
 convertmpeg2mov() {
-  for i in *.MP4;
-  do name=`echo $i | cut -d'.' -f1`;
+    for i in *.MP4;
+    do name=`echo $i | cut -d'.' -f1`;
     echo $name;
     ffmpeg -i $i -sameq -vcodec mpeg4 $name.mov;
-  done
+    done
 }
 
 convert169() {
-  ffmpeg -i $1 -sameq -vcodec mpeg4 -acodec ac3 -aspect 16:9 -strict experimental 16-9-$1 Raw
+    ffmpeg -i $1 -sameq -vcodec mpeg4 -acodec ac3 -aspect 16:9 -strict experimental 16-9-$1 Raw
 }
 
 # -------------------------------------------------------------------
-# Find broken symbolic links 
+# Find broken symbolic links
 #
 # -------------------------------------------------------------------
 function findbrokenln() {
-  find ./ -type l -exec file {} \; |grep broken
+    find ./ -type l -exec file {} \; |grep broken
+}
+
+# -------------------------------------------------------------------
+# Zoom fonts in urxvt terminal
+#
+# -------------------------------------------------------------------
+zoom() {
+    printf '\33]50;%s\007' "xft:Monaco for Powerline:size=$1:antialias=true"
+}
+
+# -------------------------------------------------------------------
+# Zoom in (zp) and out (zm) in urxvt term
+#
+# -------------------------------------------------------------------
+URXVT_SIZE=20
+URXVT_PROGRESS_SIZE=5
+
+zp() {
+    URXVT_SIZE=$(echo "$URXVT_SIZE+$URXVT_PROGRESS_SIZE" | bc )
+    zoom $URXVT_SIZE
+}
+
+zm() {
+    URXVT_SIZE=$(echo "$URXVT_SIZE-$URXVT_PROGRESS_SIZE" | bc )
+    zoom $URXVT_SIZE
 }
