@@ -28,3 +28,4 @@ done
 if [[ -n "$BENCHMARK" ]] ;
     then zprof > "$HOME/.zsh/.zgen_benchmark"
 fi
+source /usr/share/autoenv/activate.sh
