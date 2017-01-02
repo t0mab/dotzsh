@@ -30,8 +30,19 @@ export BROWSER=chromium
 # CTAGS Sorting in VIM/Emacs is better behaved with this in place
 export LC_COLLATE=C
 
+# Langages 
+#export LC_COLLATE=fr_FR.UTF-8
+export LC_CTYPE=fr_FR.UTF-8
+export LC_MESSAGES=fr_FR.UTF-8
+export LC_MONETARY=fr_FR.UTF-8
+export LC_NUMERIC=fr_FR.UTF-8
+export LC_TIME=fr_FR.UTF-8
+export LC_ALL=fr_FR.UTF-8
+export LANG=fr_FR.UTF-8
+export LANGUAGE=fr_FR.UTF-8
+export LESSCHARSET=utf-8
 
-# Virtual Environment Stuff major part stolen from oh-my-zsh venv plugin
+#Virtual Environment Stuff major part stolen from oh-my-zsh venv plugin
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev/django
 

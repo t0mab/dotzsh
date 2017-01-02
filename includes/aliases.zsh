@@ -171,7 +171,7 @@ alias t='todo.sh -d ~/.todo/config'
 alias turn-off-screen='xset dpms force off' # force to turn off screens
 # Weather
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'
-alias weather='echo -n "Meteo Strasbourg  " | pv -qL 20 && weatherman  "Strasbourg,France" '
+alias weather='weather.py'
 alias urldecode='python2.7 -c "import sys, urllib as ul; \
         print ul.unquote_plus(sys.argv[1])"'
 alias urlencode='python2.7 -c "import sys, urllib as ul; \
@@ -183,6 +183,7 @@ alias xclip='xclip -selection c'
 alias acat='< ~/.zsh/aliases.zsh'
 alias fcat='< ~/.zsh/functions.zsh'
 alias sz='source ~/.zshrc'
+alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙────────────────────────────────────── ─ ─ "; lsblk -a; echo ""; echo "╓───── d i s k . u s a g e"; echo "╙────────────────────────────────────── ─ ─ "; df -h;'
 
 # dl from ftp/site
 alias dldir="wget -c -nd -r -l 0 -np"

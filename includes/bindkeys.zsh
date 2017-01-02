@@ -18,8 +18,8 @@ bindkey '^W'      backward-kill-word                            # ctrl-w
 #bindkey "^Y"      accept-and-hold                               # ctrl-y
 bindkey "^N"      insert-last-word                              # ctrl-n  
 #bindkey -v   # Default to standard vi bindings, regardless of editor string
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
+#bindkey "${terminfo[khome]}" beginning-of-line
+#bindkey "${terminfo[kend]}" end-of-line
 
 # for rxvt
 bindkey "^[[4~" end-of-line
