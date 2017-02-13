@@ -189,6 +189,7 @@ alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙──�
 alias dldir="wget -c -nd -r -l 0 -np"
 alias aria2c="aria2c --console-log-level=error --check-integrity --bt-hash-check-seed=false -c"
 alias wget-all='wget --user-agent=Mozilla -e robots=off --content-disposition --mirror --convert-links -E -K -N -r -c'
+alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3"
 
 # -------------------------------------------------------------------
 # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh

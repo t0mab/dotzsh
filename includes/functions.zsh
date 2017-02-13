@@ -530,6 +530,27 @@ zoom() {
 }
 
 # -------------------------------------------------------------------
+# Fix virtualenv after python upgrade 
+#
+# -------------------------------------------------------------------
+fixVenv() {
+ENV_PATH="$(dirname "$(dirname "$(which pip)")")"
+SYSTEM_VIRTUALENV="$(which -a virtualenv|tail -1)"
+
+echo "Ensure the root of current virtualenv:"
+echo "    $ENV_PATH"
+read -p "‼️  Say no if you are not sure (y/N) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "♻️  Removing old symbolic links......"
+    find "$ENV_PATH" -type l -delete -print
+    echo "💫  Creating new symbolic links......"
+    $SYSTEM_VIRTUALENV "$ENV_PATH"
+    echo "🎉  Done!"
+  fi
+}
+
+# -------------------------------------------------------------------
 # Zoom in (zp) and out (zm) in urxvt term
 #
 # -------------------------------------------------------------------
