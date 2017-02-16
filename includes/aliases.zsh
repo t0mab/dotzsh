@@ -184,6 +184,7 @@ alias acat='< ~/.zsh/aliases.zsh'
 alias fcat='< ~/.zsh/functions.zsh'
 alias sz='source ~/.zshrc'
 alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙────────────────────────────────────── ─ ─ "; lsblk -a; echo ""; echo "╓───── d i s k . u s a g e"; echo "╙────────────────────────────────────── ─ ─ "; df -h;'
+alias sprite_sf='( $HOME/Dev/misc/sprites_sf/*.txt ) ; cat ${sprite_sf[RANDOM % ${#sprite_sf[@]}]}'
 
 # dl from ftp/site
 alias dldir="wget -c -nd -r -l 0 -np"
@@ -211,7 +212,6 @@ alias nomz='ps aux | less'
 alias nomnom='killall'
 alias cya='reboot'
 alias kthxbai='halt'
-
 
 # -------------------------------------------------------------------
 #  Specific os relatives alias
