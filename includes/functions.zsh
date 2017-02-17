@@ -566,3 +566,12 @@ zm() {
     URXVT_SIZE=$(echo "$URXVT_SIZE-$URXVT_PROGRESS_SIZE" | bc )
     zoom $URXVT_SIZE
 }
+
+
+# -------------------------------------------------------------------
+# Zoom in (zp) and out (zm) in urxvt term
+#
+# -------------------------------------------------------------------
+sprite_sf() {
+    sprite_sf=( $HOME/Dev/misc/sprites_sf/*.txt  ) ; cat "${sprite_sf[RANDOM % ${#sprite_sf[@]}]}"
+}
