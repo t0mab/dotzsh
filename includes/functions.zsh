@@ -575,3 +575,11 @@ zm() {
 sprite_sf() {
     sprite_sf=( $HOME/Dev/misc/sprites_sf/*.txt  ) ; cat "${sprite_sf[RANDOM % ${#sprite_sf[@]}]}"
 }
+
+# -------------------------------------------------------------------
+# Dl several files using youtube-dl 
+#
+# -------------------------------------------------------------------
+multidl() {
+    cat $1 | parallel -j30 --retries 10 --bar youtube-dl {}
+}
