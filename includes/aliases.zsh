@@ -176,7 +176,7 @@ alias urldecode='python2.7 -c "import sys, urllib as ul; \
         print ul.unquote_plus(sys.argv[1])"'
 alias urlencode='python2.7 -c "import sys, urllib as ul; \
         print ul.quote_plus(sys.argv[1])"'
-alias atomplist="apm list --installed --bare | grep '^[^@]\+' -o" 
+alias atomplist="apm list --installed --bare | grep '^[^@]\+' -o"
 #netstat -tulpn | grep -P ":80|443"
 alias xclip='xclip -selection c'
 # alias to cat this file to display
@@ -246,7 +246,7 @@ case $OS in
     # '[r]emove [o]rphans' - recursively remove ALL orphaned packages
     alias pacro="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
     # Additional pacman alias examples
-    alias archmaj='~/Scripts/News.sh  && yaourt -Syua'
+    #alias archmaj='~/Scripts/News.sh  && yaourt -Syua'
     alias pacinsd='sudo pacman -S --asdeps'            # Install given package(s) as dependencies
     alias pacmir='sudo pacman -Syy'                    # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
     alias pacupd='sudo pacman -Sy && sudo abs'         # Update and refresh the local package and ABS databases against repositories
