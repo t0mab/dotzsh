@@ -161,8 +161,10 @@ alias 'vi=vim' # using vim everywhere
 alias bcat='pygmentize -O style=monokai -f console256 -g'
 alias ccat='pygmentize -O bg=dark'
 alias c='clear'
+alias cui='uuidgen | tr -d "\n" | xclip -selection clipboard'
 alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
+alias genpass='pwgen 10 1'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
 alias open_ports="lsof -i -P | grep -i 'listen'"
 alias path='echo $PATH | tr -s ":" "\n"'
@@ -184,13 +186,19 @@ alias acat='< ~/.zsh/aliases.zsh'
 alias fcat='< ~/.zsh/functions.zsh'
 alias sz='source ~/.zshrc'
 alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙────────────────────────────────────── ─ ─ "; lsblk -a; echo ""; echo "╓───── d i s k . u s a g e"; echo "╙────────────────────────────────────── ─ ─ "; df -h;'
-
+# Surfraw
+alias srg='surfraw google'
+alias srd='surfraw duckduckgo'
+alias srs='surfraw stack'
+alias sra='surfraw aur'
+alias srl='surfraw slinuxdoc'
 # dl from ftp/site
 alias dldir="wget -c -nd -r -l 0 -np"
 alias aria2c="aria2c --console-log-level=error --check-integrity --bt-hash-check-seed=false -c"
 alias wget-all='wget --user-agent=Mozilla -e robots=off --content-disposition --mirror --convert-links -E -K -N -r -c'
 alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3"
-
+# network
+alias wanip='curl -s icanhazip.com'
 # -------------------------------------------------------------------
 # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 # -------------------------------------------------------------------
@@ -212,6 +220,27 @@ alias nomnom='killall'
 alias cya='reboot'
 alias kthxbai='halt'
 
+# http://www.zzapper.co.uk/zshtips.html
+alias -g ND='*(/om[1])' 	      # newest directory
+alias -g NF='*(.om[1])' 	      # newest file
+alias -g NO='&>|/dev/null'
+alias -g P='2>&1 | $PAGER'
+alias -g VV='| vim -R -'
+alias -g L='| less'
+alias -g M='| most'
+alias -g C='| wc -l'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+# config files
+alias virc='vi ~/.vimrc'
+alias vish='vi ~/.zshrc'
+alias vimutt='vi ~/.muttrc'
+alias vitmux='vi ~/.tmux.conf'
 # -------------------------------------------------------------------
 #  Specific os relatives alias
 # -------------------------------------------------------------------

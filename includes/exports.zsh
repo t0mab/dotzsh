@@ -67,3 +67,12 @@ if [[ "$WORKON_HOME" == "" ]]; then
   print "[oh-my-zsh] \$WORKON_HOME is not defined so virtualenvwrapper will not work" >&2
   return
 fi
+
+# Default browsers
+if [ -n "$DISPLAY"  ]; then
+  export BROWSER=/usr/bin/chromium
+else
+  export BROWSER=/usr/bin/w3m
+fi
+
+# export CHECKTERM=$(xprop -id "$WINDOWID" WM_CLASS | cut -d" " -f3 | sed 's/^.\(.*\)..$/\1/')
