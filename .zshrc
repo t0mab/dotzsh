@@ -29,3 +29,6 @@ if [[ -n "$BENCHMARK" ]] ;
     then zprof > "$HOME/.zsh/.zgen_benchmark"
 fi
 source /usr/share/autoenv/activate.sh
+
+zstyle ':notify:*' error-title "#fail background cmd"
+zstyle ':notify:*' success-title "#success background cmd"
