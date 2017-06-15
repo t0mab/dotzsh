@@ -164,7 +164,7 @@ alias c='clear'
 alias cui='uuidgen | tr -d "\n" | xclip -selection clipboard'
 alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
-alias genpass='pwgen 10 1'
+alias genpass='pwgen -Bcy 15 1'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
 alias open_ports="lsof -i -P | grep -i 'listen'"
 alias path='echo $PATH | tr -s ":" "\n"'
@@ -241,6 +241,8 @@ alias virc='vi ~/.vimrc'
 alias vish='vi ~/.zshrc'
 alias vimutt='vi ~/.muttrc'
 alias vitmux='vi ~/.tmux.conf'
+# docker
+alias purge_docker="docker ps -qa | xargs docker rm -f ; docker images -qa | xargs docker rmi -f"
 # -------------------------------------------------------------------
 #  Specific os relatives alias
 # -------------------------------------------------------------------
