@@ -329,6 +329,7 @@ case $OS in
     alias units="echo -n Listing Units | pv -qL 10 && systemctl list-units | ccze -A"
     alias i3edit="vi ~/.i3/config"
     alias vpnuds="sudo openconnect vpn.u-strasbg.fr"
+    alias redshift-strasbourg="redshift -v -l 48.57:7.75 -b 1.0:0.6"
     ;;
   'FreeBSD')
     OS='FreeBSD'

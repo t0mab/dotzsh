@@ -12,7 +12,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/sudo
     zgen load unixorn/autoupdate-zgen
     zgen oh-my-zsh plugins/tmux
-    zgen load marzocchi/zsh-notify
+    zgen oh-my-zsh plugins/bgnotify
 
     # OS specific plugins
     if [[ $CURRENT_OS == 'OSX' ]]; then

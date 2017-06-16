@@ -76,3 +76,13 @@ else
 fi
 
 # export CHECKTERM=$(xprop -id "$WINDOWID" WM_CLASS | cut -d" " -f3 | sed 's/^.\(.*\)..$/\1/')
+#
+
+# Config of long cmd notification
+bgnotify_threshold=4  ## set your own notification threshold
+
+function bgnotify_formatted {
+  ## $1=exit_status, $2=command, $3=elapsed_time
+  [ $1 -eq 0 ] && title="FTW!" || title="EPIC FAIL!"
+  bgnotify "$title -- after $3 s" "$2";
+}
