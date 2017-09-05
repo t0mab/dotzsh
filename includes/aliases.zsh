@@ -160,13 +160,15 @@ alias 'rm=rm -i' # make rm command (potentially) less destructive
 alias 'vi=vim' # using vim everywhere
 alias bcat='pygmentize -O style=monokai -f console256 -g'
 alias ccat='pygmentize -O bg=dark'
-alias c='clear'
+alias c='pygmentize -O style=borland -f console256 -g'
 alias cui='uuidgen | tr -d "\n" | xclip -selection clipboard'
 alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
 alias genpass='pwgen -Bcy 15 1'
 alias i3cheatsheet='egrep "^bind" ~/.i3/config | cut -d '\'' '\'' -f 2- | sed '\''s/ /\t/'\'' | column -ts $'\''\t'\'' | pr -2 -w 160 -t | less'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
+alias la="exa -abghl --git --color=automatic"
+
 alias open_ports="lsof -i -P | grep -i 'listen'"
 alias path='echo $PATH | tr -s ":" "\n"'
 alias pdf='zathura'
