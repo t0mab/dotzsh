@@ -14,7 +14,11 @@
 
 if (( $+commands[alsi] )); then
   if [[ -t 0 || -t 1 ]]; then
-    alsi
+    if (( $+commands[lolcat] )); then
+      alsi|lolcat
+    else
+      alsi 
+    fi
     print
   fi
 fi
