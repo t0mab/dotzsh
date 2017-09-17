@@ -86,3 +86,6 @@ function bgnotify_formatted {
   [ $1 -eq 0 ] && title="FTW!" || title="EPIC FAIL!"
   bgnotify "$title -- after $3 s" "$2";
 }
+
+export GPG_TTY=$(tty)
+
