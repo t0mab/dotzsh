@@ -30,7 +30,7 @@ export BROWSER=chromium
 # CTAGS Sorting in VIM/Emacs is better behaved with this in place
 export LC_COLLATE=C
 
-# Langages 
+# Langages
 #export LC_COLLATE=fr_FR.UTF-8
 export LC_CTYPE=fr_FR.UTF-8
 export LC_MESSAGES=fr_FR.UTF-8
@@ -89,24 +89,14 @@ function bgnotify_formatted {
 
 export GPG_TTY=$(tty)
 
-# fzf support (need fzf)
-#
-if [[ ! "$PATH" == */usr/bin/fzf/bin* ]]; then
-  export PATH="$PATH:/usr/bin/fzf/bin"
+# XDG configuration home
+if [[ -z $XDG_CONFIG_HOME ]]
+then
+  export XDG_CONFIG_HOME=$HOME/.config
 fi
 
-# Auto-completion
-[[ $- == *i* ]] && source "/usr/share/fzf/completion.zsh" 2> /dev/null
-
-# Key bindings
-source "/usr/share/fzf/key-bindings.zsh"
-
-# Setting ag as the default source for fzf
-export FZF_DEFAULT_COMMAND='ag -g ""'
-
-# To apply the command to CTRL-T as well
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-_fzf_compgen_path() {
-  ag -g "" "$1"
-}
+# XDG data home
+if [[ -z $XDG_DATA_HOME ]]
+then
+  export XDG_DATA_HOME=$HOME/.local/share
+fi

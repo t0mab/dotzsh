@@ -37,7 +37,6 @@ if ! zgen saved; then
         zgen oh-my-zsh plugins/vagrant
         zgen oh-my-zsh plugins/ssh-agent
         zgen oh-my-zsh plugins/git-extras
-
         if [[ $DISTRO == 'CentOS' ]]; then
             zgen oh-my-zsh centos
         fi

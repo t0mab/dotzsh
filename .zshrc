@@ -17,6 +17,7 @@ files=(
         history.zsh
         directories.zsh
         colors.zsh
+        fzf.zsh
         )
 
 for file in ${files[*]}
