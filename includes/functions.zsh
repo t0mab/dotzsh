@@ -255,14 +255,14 @@ function mkdirf() {
 # -------------------------------------------------------------------
 function man() {
     env \
-      LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-      LESS_TERMCAP_md=$(printf "\e[1;31m") \
-      LESS_TERMCAP_me=$(printf "\e[0m") \
-      LESS_TERMCAP_se=$(printf "\e[0m") \
-      LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-      LESS_TERMCAP_ue=$(printf "\e[0m") \
-      LESS_TERMCAP_us=$(printf "\e[1;32m") \
-      man "$@"
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
 }
 
 # -------------------------------------------------------------------
@@ -677,24 +677,24 @@ function doc()
 
     case $1 in
         (rg|regex) cat $DOC_BASE/regex.txt; return ;;
-       (pf|printf)     $DOC_BASE/printf.sh; return ;;
-            (sort) cat $DOC_BASE/sort.txt;  return ;;
+        (pf|printf)     $DOC_BASE/printf.sh; return ;;
+        (sort) cat $DOC_BASE/sort.txt;  return ;;
     esac
 
     typeset -a matches
 
     while read -r
     do
-       matches+=($REPLY)
-   done < <(\ag -l -S --hidden --ignore .git --ignore .svn --ignore .hg --ignore misc --ignore '*install*' --ignore 'README*' --ignore 'LICENSE' $1 $DOC_BASE)
+        matches+=($REPLY)
+    done < <(\ag -l -S --hidden --ignore .git --ignore .svn --ignore .hg --ignore misc --ignore '*install*' --ignore 'README*' --ignore 'LICENSE' $1 $DOC_BASE)
 
     # For a single match, open the help file
     if (( ${#matches} == 1 ))
     then
-       # TODO: send to running nvim
-       v $matches -c"0/$1" -c'noh|norm zv<cr>'
+        # TODO: send to running nvim
+        v $matches -c"0/$1" -c'noh|norm zv<cr>'
     elif (( ${#matches} > 1 ))
     then
-       ag $1 $matches
+        ag $1 $matches
     fi
 }
