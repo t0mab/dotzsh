@@ -19,7 +19,17 @@ export GREP_COLOR='3;33'
 # This resolves issues install the mysql, postgres, and other gems with native non universal binary extensions
 export ARCHFLAGS='-arch x86_64'
 
-export LESS='--ignore-case --raw-control-chars'
+# -i   : ignore case
+# -r/R : raw control characters
+# -s   : Squeeze multiple blank lines
+# -W   : Highlight first new line after any forward movement
+# -M   : very verbose prompt
+# -PM  : customize the very verbose prompt (there is also -Ps and -Pm)
+# ?letterCONTENT. - if test true display CONTENT (the dot ends the test) OR
+# ?letterTRUE:FALSE.
+# ex: ?L%L lines, . - if number of lines known: display %L lines,
+#export LESS='--ignore-case --raw-control-chars'
+export LESS='-i -r -s -W -M -PM?f%f - :.?L%L lines, .?ltL\:%lt:.?pB, %pB\% : .?e(Bottom)%t'
 export PAGER='less'
 export EDITOR='vi'
 export VISUAL=$EDITOR

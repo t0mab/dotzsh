@@ -114,7 +114,7 @@ alias grr='git remote rm'
 alias gs='git status'
 alias gta='git tag -a -m'
 alias gv='git log --pretty=format:'%s' | cut -d " " -f 1 | sort | uniq -c | sort -nr'
-alias g='git'
+#alias g='git'
 # leverage aliases from ~/.gitconfig
 alias gh='git hist'
 alias gt='git today'
@@ -165,6 +165,7 @@ alias c='pygmentize -O style=borland -f console256 -g'
 alias cui='uuidgen | tr -d "\n" | xclip -selection clipboard'
 alias e='exit'
 alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"'
+alias fu='sudo fuser -mv' # what uses the named files, sockets, or filesystems
 alias genpass='pwgen -Bcy 15 1'
 alias i3cheatsheet='egrep "^bind" ~/.i3/config | cut -d '\'' '\'' -f 2- | sed '\''s/ /\t/'\'' | column -ts $'\''\t'\'' | pr -2 -w 160 -t | less'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
@@ -200,8 +201,9 @@ alias dldir="wget -c -nd -r -l 0 -np"
 alias aria2c="aria2c --console-log-level=error --check-integrity --bt-hash-check-seed=false -c"
 alias wget-all='wget --user-agent=Mozilla -e robots=off --content-disposition --mirror --convert-links -E -K -N -r -c'
 alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3"
+alias '?=whence -ca' # print info about a command, alias, function..
 # network
-alias wanip='curl -s icanhazip.com'
+alias myip='curl -s icanhazip.com'
 # -------------------------------------------------------------------
 # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 # -------------------------------------------------------------------
@@ -246,10 +248,20 @@ alias vimutt='vi ~/.muttrc'
 alias vitmux='vi ~/.tmux.conf'
 # docker
 alias purge_docker="docker ps -qa | xargs docker rm -f ; docker images -qa | xargs docker rmi -f"
+# rep or silver searcher aliases
+if (( $+commands[ag] ))
+then
+   alias ag='ag -S --hidden --ignore=.git --ignore=.svn --ignore=.hg --color-line-number="00;32" --color-path="00;35" --color-match="01;31"'
+   alias gr=ag
+   alias g=ag
+else
+   alias g='grep -iE --color=auto --exclude="*~" --exclude tags'
+   alias gr='grep -IRiE --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --color=auto --exclude="*~" --exclude tags'
+fi
+
 # -------------------------------------------------------------------
 #  Specific os relatives alias
 # -------------------------------------------------------------------
-
 #TODO : us checkos.zsh style for this !!!!!
 
 OS="`uname`"

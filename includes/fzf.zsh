@@ -12,11 +12,11 @@ fi
 source "/usr/share/fzf/key-bindings.zsh"
 
 # Setting ag as the default source for fzf
-#export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag -S --hidden --ignore=.git --ignore=.svn --ignore=.hg -g ""'
 
 # To apply the command to CTRL-T as well
-#export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# _fzf_compgen_path() {
-#  ag -g "" "$1"
-#}
+_fzf_compgen_path() {
+  ag -g "" "$1"
+}

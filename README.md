@@ -15,3 +15,4 @@ sprite_sf https://github.com/ylmrx/sprites_sf
 exa
 pygmentize
 fzf
+silver_searcher
