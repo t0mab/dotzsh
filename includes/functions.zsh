@@ -596,18 +596,15 @@ archmaj() {
 }
 
 # -------------------------------------------------------------------
-# visual cp 
+# visual cp
 #
-# -------------------------------------------------------------------
-
-
 # Copyleft 2017 by Ignacio Nunez Hernanz <nacho _a_t_ ownyourbits _d_o_t_ com>
-# GPL licensed 
+# GPL licensed
 #
 # Usage:
 #   cpv file_or_dir_src file_or_dir_dst
 #
-
+# -------------------------------------------------------------------
 function cpv()
 {
   local DST=${@: -1}                    # last element
@@ -639,19 +636,19 @@ function cpv()
   if ! [ -d "$DST" ]; then cpv_rename "$@"; return $?; fi;
 
   # more checks
-  for src in "${SRC[@]}"; do 
+  for src in "${SRC[@]}"; do
     local dst="$DST/$( basename "$src" )"
     if ! [ -e "$src" ]; then echo "$src doesn't exist" ; return 1;
     elif [ -e "$dst" ]; then echo "$dst already exists"; return 1; fi
   done
 
   # actual copy
-  for src in "${SRC[@]}"; do 
-    if ! [ -d "$src" ]; then 
+  for src in "${SRC[@]}"; do
+    if ! [ -d "$src" ]; then
       local dst="$DST/$( basename "$src" )"
       echo -e "\n$src 🡺  $dst"
       pv "$src" > "$dst"
-    else 
+    else
       local dir="$DST/$( basename "$src" )"
       mkdir "$dir" || continue
       local srcs=( $src/* )
@@ -659,4 +656,45 @@ function cpv()
     fi
   done
   unset cpv_rename
+}
+
+# -------------------------------------------------------------------
+# add execute right on stuff
+# -------------------------------------------------------------------
+function x()
+{
+  chmod u+x -- $@
+}
+
+# -------------------------------------------------------------------
+# Search for help topics in my personal documentation
+# steal from https://github.com/kurkale6ka
+# Usage: doc topic
+# -------------------------------------------------------------------
+function doc()
+{
+    (($# == 0)) && return 1
+
+    case $1 in
+        (rg|regex) cat $DOC_BASE/regex.txt; return ;;
+       (pf|printf)     $DOC_BASE/printf.sh; return ;;
+            (sort) cat $DOC_BASE/sort.txt;  return ;;
+    esac
+
+    typeset -a matches
+
+    while read -r
+    do
+       matches+=($REPLY)
+   done < <(\ag -l -S --hidden --ignore .git --ignore .svn --ignore .hg --ignore misc --ignore '*install*' --ignore 'README*' --ignore 'LICENSE' $1 $DOC_BASE)
+
+    # For a single match, open the help file
+    if (( ${#matches} == 1 ))
+    then
+       # TODO: send to running nvim
+       v $matches -c"0/$1" -c'noh|norm zv<cr>'
+    elif (( ${#matches} > 1 ))
+    then
+       ag $1 $matches
+    fi
 }

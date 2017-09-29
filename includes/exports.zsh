@@ -56,6 +56,9 @@ export LESSCHARSET=utf-8
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev/django
 
+# Misc
+export DOC_BASE=$HOME/Dev/doc/help
+
 virtualenvwrapper='virtualenvwrapper.sh'
 
 if (( $+commands[$virtualenvwrapper] )); then
