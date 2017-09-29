@@ -14,3 +14,4 @@ mkvmerge (for functions.zsh)
 sprite_sf https://github.com/ylmrx/sprites_sf
 exa
 pygmentize
+fzf
