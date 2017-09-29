@@ -57,7 +57,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev/django
 
 # Misc
-export DOC_BASE=$HOME/Dev/doc/help
+export DOC_BASE=$HOME/Dropbox/Help
 
 virtualenvwrapper='virtualenvwrapper.sh'
 
