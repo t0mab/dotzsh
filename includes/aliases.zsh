@@ -23,6 +23,7 @@ alias l='ls -al'
 alias ls='ls -GFh' # Colorize output, add file type indicator, and put sizes in human readable format
 alias ll='ls -GFhl' # Same as above, but in long listing format
 alias lst='ls -AlFhrt'
+alias la="exa -abghl --git --color=automatic"
 alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
 alias 'dus=du -sckx * | sort -nr' #directories sorted by size
 alias dirsize='du -sch' # Show size of current directory
@@ -167,7 +168,6 @@ alias fact='wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;
 alias genpass='pwgen -Bcy 15 1'
 alias i3cheatsheet='egrep "^bind" ~/.i3/config | cut -d '\'' '\'' -f 2- | sed '\''s/ /\t/'\'' | column -ts $'\''\t'\'' | pr -2 -w 160 -t | less'
 alias kindlesend='mutt bastardkindlefromhell@kindle.com -s "new book" -a'
-alias la="exa -abghl --git --color=automatic"
 
 alias open_ports="lsof -i -P | grep -i 'listen'"
 alias path='echo $PATH | tr -s ":" "\n"'

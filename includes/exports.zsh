@@ -88,4 +88,3 @@ function bgnotify_formatted {
 }
 
 export GPG_TTY=$(tty)
-
