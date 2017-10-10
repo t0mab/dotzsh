@@ -692,7 +692,7 @@ function doc()
     if (( ${#matches} == 1 ))
     then
         # TODO: send to running nvim
-        v $matches -c"0/$1" -c'noh|norm zv<cr>'
+        vi $matches -c"0/$1" -c'noh|norm zv<cr>'
     elif (( ${#matches} > 1 ))
     then
         ag $1 $matches
