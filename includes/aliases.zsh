@@ -30,7 +30,7 @@ alias dirsize='du -sch' # Show size of current directory
 alias 'wordy=wc -w * | sort | tail -n10' # sort files in current directory by the number of words they contain
 alias 'filecount=find . -type f | wc -l' # number of files (not directories)
 alias mkdir='mkdir -p -v'
-
+alias mutt='neomutt'
 # -------------------------------------------------------------------
 # Mac only
 # -------------------------------------------------------------------
