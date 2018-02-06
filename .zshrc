@@ -3,8 +3,6 @@
 # stolen from https://www.reddit.com/r/zsh/comments/3qoo6p/zsh_customization/
 # Uncomment line below to troubleshoot startup speed issues
 # BENCHMARK=1 && zmodload zsh/zprof
-
-#export TERM=xterm-256color
 export TERM=rxvt-unicode-256color
 # POWERLEVEL9K relative
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='black'

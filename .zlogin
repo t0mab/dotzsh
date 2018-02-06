@@ -40,4 +40,4 @@ if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
     logout
 elif [[ $(tty) = /dev/tty2 ]]; then
     tmux -f $HOME/.tmux/conf new -s secured
-  fi
+fi
