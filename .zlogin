@@ -27,8 +27,17 @@ fi
 if (( $+commands[fortune] )); then
   if [[ -t 0 || -t 1 ]]; then
     fortune -s
+    #fortune | cowsay -f /usr/share/cows/sodomized.cow 
     print
   fi
 fi
 
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
+# startx if on tty1 and tmux on tty2
+if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
+    exec startx -- vt1 &>/dev/null
+    logout
+elif [[ $(tty) = /dev/tty2 ]]; then
+    tmux -f $HOME/.tmux/conf new -s secured
+  fi

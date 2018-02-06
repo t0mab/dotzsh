@@ -339,6 +339,7 @@ case $OS in
     alias 'o'='xdg-open'
     alias archerrors='echo -n Journal Errors | pv -qL 10 && journalctl -b -p err | ccze -A'
     alias systemdmsg="sudo journalctl /usr/lib/systemd/systemd | ccze -A"
+    alias cleansyslog="sudo journalctl --vacuum-time=2d"
     alias blame="systemd-analyze blame | ccze -A"
     alias boot="echo -n Boot Time | pv -qL 10 && systemd-analyze | ccze -A"
     alias units="echo -n Listing Units | pv -qL 10 && systemctl list-units | ccze -A"
