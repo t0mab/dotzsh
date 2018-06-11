@@ -2,7 +2,7 @@
 #
 # Currently this path is appended to dynamically when picking a ruby version
 # zshenv has already started PATH with rbenv so append only here
-export PATH=$PATH~/bin:/usr/local/bin:/usr/local/sbin:~/bin:~/Scripts:~/.gem/ruby/2.3.0/bin
+export PATH=$PATH~/bin:/usr/local/bin:/usr/local/sbin:~/bin:~/Scripts:~/.gem/ruby/2.3.0/bin:/usr/bin/core_perl
 
 # Set default console Java
 # export JAVA_HOME=/dev/null
