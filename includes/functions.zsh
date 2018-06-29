@@ -592,7 +592,8 @@ archmaj() {
     # get news from archlinux fr
     curl https://archlinux.fr/feed -s|awk '/<title>/ {z=substr($0,10,length($0)-17)} /<pubDate>/ {print z "||" $2" " $3 " " $4} '
     python -c 'import sys; print (sys.real_prefix)' 2>/dev/null && deactivate
-    yaourt -Syua
+    #yaourt -Syua
+    yay -Syu --noconfirm
 }
 
 # -------------------------------------------------------------------

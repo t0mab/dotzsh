@@ -314,18 +314,18 @@ case $OS in
     alias pacman-provides-="pacman -Qo"           # Show package(s) owning the specified file(s)
     alias pacman-force-installed="pacman -D --asexp"   # Mark one or more installed packages as explicitly installed
     alias pacman-force-uninstalled="pacman -D --asdep"   # Mark one or more installed packages as non explicitly installed
+    ### Systemd ###
     alias sdisable=' sudo systemctl disable $@'
     alias senable='sudo systemctl enable $@'
     alias srestart='sudo systemctl restart $@'
     alias sstart='sudo systemctl start $@'
     alias sstatus='sudo systemctl status $@'
     alias sstop='sudo systemctl stop $@'
-    ### Systemd ###
     alias start='sudo systemctl start'
     alias stop='sudo systemctl stop'
     alias restart='sudo systemctl restart'
     alias status='systemctl status'
-
+    alias serror='journalctl -xe -p4 -b0'
     #misc
     #
     # byzanz screencaster to gif
@@ -339,6 +339,7 @@ case $OS in
     alias 'o'='xdg-open'
     alias archerrors='echo -n Journal Errors | pv -qL 10 && journalctl -b -p err | ccze -A'
     alias systemdmsg="sudo journalctl /usr/lib/systemd/systemd | ccze -A"
+    alias cleansyslog="sudo journalctl --vacuum-time=2d"
     alias blame="systemd-analyze blame | ccze -A"
     alias boot="echo -n Boot Time | pv -qL 10 && systemd-analyze | ccze -A"
     alias units="echo -n Listing Units | pv -qL 10 && systemctl list-units | ccze -A"

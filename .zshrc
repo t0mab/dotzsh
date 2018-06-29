@@ -3,7 +3,7 @@
 # stolen from https://www.reddit.com/r/zsh/comments/3qoo6p/zsh_customization/
 # Uncomment line below to troubleshoot startup speed issues
 # BENCHMARK=1 && zmodload zsh/zprof
-
+export TERM=rxvt-unicode-256color
 # POWERLEVEL9K relative
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='black'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='220'
@@ -12,6 +12,7 @@ POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='204'
 POWERLEVEL9K_VCS_CLEAN_FOREGROUND='148'
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND='black'
 POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+POWERLEVEL9K_HIDE_BRANCH_ICON=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time background_jobs virtualenv)
 POWERLEVEL9K_SHORTEN_STRATEGY='truncate_middle'

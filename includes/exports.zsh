@@ -2,7 +2,7 @@
 #
 # Currently this path is appended to dynamically when picking a ruby version
 # zshenv has already started PATH with rbenv so append only here
-export PATH=$PATH~/bin:/usr/local/bin:/usr/local/sbin:~/bin:~/Scripts:~/.gem/ruby/2.3.0/bin:~/.gem/ruby/2.5.0/bin
+export PATH=$PATH~/bin:/usr/local/bin:/usr/local/sbin:~/bin:~/Scripts:~/.gem/ruby/2.3.0/bin:~/.gem/ruby/2.5.0/bin:/usr/bin/core_perl
 
 # Set default console Java
 # export JAVA_HOME=/dev/null
@@ -47,7 +47,7 @@ export LC_MESSAGES=fr_FR.UTF-8
 export LC_MONETARY=fr_FR.UTF-8
 export LC_NUMERIC=fr_FR.UTF-8
 export LC_TIME=fr_FR.UTF-8
-export LC_ALL=fr_FR.UTF-8
+#export LC_ALL=fr_FR.UTF-8
 export LANG=fr_FR.UTF-8
 export LANGUAGE=fr_FR.UTF-8
 export LESSCHARSET=utf-8
