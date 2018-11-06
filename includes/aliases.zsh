@@ -204,6 +204,9 @@ alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3"
 alias '?=whence -ca' # print info about a command, alias, function..
 # network
 alias myip='curl -s icanhazip.com'
+# kitty kittens
+alias icat="kitty +kitten icat"
+alias difff="kitty +kitten diff"
 # -------------------------------------------------------------------
 # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 # -------------------------------------------------------------------
@@ -289,6 +292,7 @@ case $OS in
     alias pacrep='pacman -Si'               # Display information about a given package in the repositories
     alias pacreps='pacman -Ss'              # Search for package(s) in the repositories
     alias pacupg='sudo pacman -Syu'         # Synchronize with repositories and then upgrade packages that are out of date on the local system.
+    alias pacshow='grep "upgraded" /var/log/pacman.log | tail -n45 | cut -d" " -f5-8'
     # '[r]emove [o]rphans' - recursively remove ALL orphaned packages
     alias pacro="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
     # Additional pacman alias examples

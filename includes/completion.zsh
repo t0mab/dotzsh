@@ -31,7 +31,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 # list of completers to use
 zstyle ':completion:*::::' completer _expand _complete _ignored
 
-zstyle ':completion:*' menu select=1 _complete _ignored 
+zstyle ':completion:*' menu select=1 _complete _ignored
 
 # insert all expansions for expand completer
 # zstyle ':completion:*:expand:*' tag-order all-expansions
@@ -68,3 +68,6 @@ zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w 
 # Color coding suggestions for the 'kill' command
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle '*' single-ignored show
+
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
