@@ -2,3 +2,4 @@ node_modules
 .zcompdump*
 .*.zwc
 cache/
+package-lock.json

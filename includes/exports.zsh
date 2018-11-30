@@ -113,3 +113,5 @@ if [[ -z $XDG_DATA_HOME ]]
 then
   export XDG_DATA_HOME=$HOME/.local/share
 fi
+
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
