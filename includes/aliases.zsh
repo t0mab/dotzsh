@@ -261,6 +261,8 @@ else
     alias g='grep -iE --color=auto --exclude="*~" --exclude tags'
     alias gr='grep -IRiE --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --color=auto --exclude="*~" --exclude tags'
 fi
+# fzf+bat search and preview
+alias preview='fzf --height=50% --layout=reverse --preview="bat --color=always {}"'
 
 # -------------------------------------------------------------------
 #  Specific os relatives alias

@@ -21,6 +21,7 @@ if ! zgen saved; then
         zgen oh-my-zsh plugins/pip
         zgen oh-my-zsh plugins/python
         zgen oh-my-zsh plugins/virtualenv
+        zgen oh-my-zsh plugins/virtualenvwrapper
         zgen oh-my-zsh plugins/perl
         zgen oh-my-zsh plugins/rbenv
         zgen oh-my-zsh plugins/jsontools
@@ -33,6 +34,7 @@ if ! zgen saved; then
         zgen oh-my-zsh plugins/pip
         zgen oh-my-zsh plugins/python
         zgen oh-my-zsh plugins/virtualenv
+        zgen oh-my-zsh plugins/virtualenvwrapper
         zgen oh-my-zsh plugins/perl
         zgen oh-my-zsh plugins/vagrant
         zgen oh-my-zsh plugins/ssh-agent

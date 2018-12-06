@@ -16,3 +16,4 @@ exa
 pygmentize
 fzf
 silver_searcher
+bat
