@@ -79,6 +79,7 @@ alias v1copyid='ssh-copy-id vagrant@192.168.1.2'
 alias v2='ssh vagrant@192.168.1.3'
 alias v2copyid='ssh-copy-id vagrant@192.168.1.2'
 alias vacopyid='ssh-copy-id vagrant@192.168.1.2 && ssh-copy-id vagrant@192.168.1.3'
+alias vagrantaddssh='ssh-add /home/toma/Dev/vagrant/.vagrant/machines/default/virtualbox/private_key'
 
 # -------------------------------------------------------------------
 # Git
@@ -203,7 +204,7 @@ alias wget-all='wget --user-agent=Mozilla -e robots=off --content-disposition --
 alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3"
 alias '?=whence -ca' # print info about a command, alias, function..
 # network
-alias myip='curl -s icanhazip.com'
+#alias myip='curl -s icanhazip.com'
 # kitty kittens
 alias icat="kitty +kitten icat"
 alias difff="kitty +kitten diff"
@@ -246,9 +247,10 @@ alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 # config files
 alias virc='vi ~/.vimrc'
-alias vish='vi ~/.zshrc'
+alias vizsh='vi ~/.zshrc'
 alias vimutt='vi ~/.muttrc'
 alias vitmux='vi ~/.tmux.conf'
+alias vii3="vi ~/.config/i3/config"
 # docker
 alias purge_docker="docker ps -qa | xargs docker rm -f ; docker images -qa | xargs docker rmi -f"
 # rep or silver searcher aliases

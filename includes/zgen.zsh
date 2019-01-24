@@ -13,7 +13,7 @@ if ! zgen saved; then
     zgen load unixorn/autoupdate-zgen
     zgen oh-my-zsh plugins/tmux
     zgen oh-my-zsh plugins/bgnotify
-    zgen load bhilburn/powerlevel9k powerlevel9k
+
     # OS specific plugins
     if [[ $CURRENT_OS == 'OSX' ]]; then
         zgen oh-my-zsh plugins/brew
@@ -50,6 +50,9 @@ if ! zgen saved; then
     # completion-only repositories. Add optional path argument to specify
     # what subdirectory of the repository to add to your fpath.
     zgen load zsh-users/zsh-completions src
+
+    # zsh powerlevel9k Theme
+    zgen load bhilburn/powerlevel9k powerlevel9k
 
     # save all to init script
     zgen save

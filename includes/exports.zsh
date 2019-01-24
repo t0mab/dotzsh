@@ -54,7 +54,7 @@ export LESSCHARSET=utf-8
 
 #Virtual Environment Stuff major part stolen from oh-my-zsh venv plugin
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Dev/django
+export PROJECT_HOME=$HOME/Dev/python
 
 # Misc
 export DOC_BASE=$HOME/Dropbox/Help
@@ -74,7 +74,14 @@ elif [[ -f "/etc/bash_completion.d/virtualenvwrapper" ]]; then
     virtualenvwrapper="/etc/bash_completion.d/virtualenvwrapper"
     source "/etc/bash_completion.d/virtualenvwrapper"
   }
+elif [[ -f "/usr/bin/virtualenvwrapper.sh" ]]; then
+  function {
+    setopt local_options
+    unsetopt equals
+    virtualenvwrapper="/usr/bin/virtualenvwrapper.sh"
+  }
 fi
+# source /usr/bin/virtualenvwrapper.sh
 
 if [[ "$WORKON_HOME" == "" ]]; then
   print "[oh-my-zsh] \$WORKON_HOME is not defined so virtualenvwrapper will not work" >&2

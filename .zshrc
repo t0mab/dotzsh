@@ -5,6 +5,8 @@
 # BENCHMARK=1 && zmodload zsh/zprof
 export TERM=rxvt-unicode-256color
 # POWERLEVEL9K relative
+#
+#
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='black'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='220'
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='black'
@@ -14,8 +16,8 @@ POWERLEVEL9K_VCS_CLEAN_BACKGROUND='black'
 POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
 POWERLEVEL9K_HIDE_BRANCH_ICON=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time background_jobs virtualenv pyenv)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time virtualenv pyenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time root_indicator background_jobs virtualenv pyenv)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv vi_mode time)
 POWERLEVEL9K_SHORTEN_STRATEGY='truncate_middle'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 POWERLEVEL9K_STATUS_VERBOSE=false
@@ -33,7 +35,6 @@ POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND='015'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='black'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='148'
 POWERLEVEL9K_SHOW_CHANGESET=true
-
 
 files=(
         checks.zsh
@@ -62,6 +63,5 @@ if [[ -n "$BENCHMARK" ]] ;
 fi
 source /usr/share/autoenv/activate.sh
 
-#zgen load bhilburn/powerlevel9k powerlevel9k
 zstyle ':notify:*' error-title "#fail background cmd"
 zstyle ':notify:*' success-title "#success background cmd"
