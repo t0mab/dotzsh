@@ -56,6 +56,9 @@ export LESSCHARSET=utf-8
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev/python
 
+# Not showing end of partial line
+export PROMPT_EOL_MARK=''
+
 # Misc
 export DOC_BASE=$HOME/Dropbox/Help
 

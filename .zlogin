@@ -32,6 +32,15 @@ if (( $+commands[fortune] )); then
   fi
 fi
 
+# Print ephemerid.
+if (( $+commands[saintdujour.sh] )); then
+  if [[ -t 0 || -t 1 ]]; then
+    print "Bonne fête :"
+    saintdujour.sh
+    print
+  fi
+fi
+
 #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
 # startx if on tty1 and tmux on tty2

@@ -3,7 +3,8 @@
 # stolen from https://www.reddit.com/r/zsh/comments/3qoo6p/zsh_customization/
 # Uncomment line below to troubleshoot startup speed issues
 # BENCHMARK=1 && zmodload zsh/zprof
-export TERM=rxvt-unicode-256color
+export TERM=xterm-256color
+#export TERM=rxvt-unicode-256color
 # POWERLEVEL9K relative
 #
 #
@@ -65,3 +66,5 @@ source /usr/share/autoenv/activate.sh
 
 zstyle ':notify:*' error-title "#fail background cmd"
 zstyle ':notify:*' success-title "#success background cmd"
+
+saintdujour.sh

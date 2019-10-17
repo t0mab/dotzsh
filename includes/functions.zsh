@@ -703,3 +703,32 @@ function doc()
         ag $1 $matches
     fi
 }
+
+# -------------------------------------------------------------------
+# Check archlinux updates both aur and repos packages
+# -------------------------------------------------------------------
+
+get_updates()
+{
+  Updates=$(yay -Qu | wc -l)
+  if [ $Updates -eq 0 ] #Solid Green
+  then
+    echo "\e[92m$Updates\e[0m"
+    return
+  fi
+  if [ $Updates -ge 10 ] #Red Blink
+  then
+    echo "\e[91m\e[5m$Updates\e[0m"
+    return
+  fi
+  if [ $Updates -ge 5 ] #Yellow Blink
+  then
+    printf "\e[93m\e[5m$Updates\e[0m" "$Updates"
+          return
+  fi
+  if [ $Updates -ge 1 ] #Blink Green.
+  then
+    echo "\e[92m\e[5m$Updates\e[0m"
+    return
+  fi
+}
