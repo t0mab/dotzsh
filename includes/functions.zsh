@@ -595,9 +595,13 @@ multidl() {
 archmaj() {
     # get news from archlinux fr
     curl https://archlinux.fr/feed -s|awk '/<title>/ {z=substr($0,10,length($0)-17)} /<pubDate>/ {print z "||" $2" " $3 " " $4} '
+    # deactivate virtualenv
     python -c 'import sys; print (sys.real_prefix)' 2>/dev/null && deactivate
     #yaourt -Syua
-    yay -Syu --noconfirm
+    yay -Pw                             # print news if any
+    yay -Syu --devel --noconfirm        # update repo and AUR packages, including -git packages
+    sudo fwupdmgr refresh               # get firmware updates
+    sudo fwupdmgr update                # install/schedule boot firmware updates if any
 }
 
 # -------------------------------------------------------------------
@@ -731,4 +735,13 @@ get_updates()
     echo "\e[92m\e[5m$Updates\e[0m"
     return
   fi
+}
+
+# -------------------------------------------------------------------
+# Local network scan
+# -------------------------------------------------------------------
+
+nmap_local_scan()
+{
+  nmap -Ap 80,8000,8080,443,8443,7443,7070,7000,22,23,21 10.5.1.0/24 192.168.0.0/24 192.168.1.0/24
 }

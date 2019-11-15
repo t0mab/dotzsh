@@ -67,4 +67,4 @@ source /usr/share/autoenv/activate.sh
 zstyle ':notify:*' error-title "#fail background cmd"
 zstyle ':notify:*' success-title "#success background cmd"
 
-saintdujour.sh
+echo "Bonne fête : " && saintdujour.sh

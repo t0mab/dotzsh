@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/t0mab/dotzsh#readme",
   "dependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.1",
     "gulp-lintspaces": "^0.4.1"
   }
 }
