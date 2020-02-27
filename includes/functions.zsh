@@ -209,7 +209,9 @@ function initproject () {
 
     pip install "$DJANGO_VERSION"
 
-    django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+
+    django-admin startproject --template=https://github.com/unistra/django-drybones/archive/django2.2.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+    #django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
     cd $PROJECT_NAME
     setvirtualenvproject $VIRTUAL_ENV $PWD
     echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
@@ -745,3 +747,22 @@ nmap_local_scan()
 {
   nmap -Ap 80,8000,8080,443,8443,7443,7070,7000,22,23,21 10.5.1.0/24 192.168.0.0/24 192.168.1.0/24
 }
+
+# -------------------------------------------------------------------
+# Systemd relatives functions 
+# -------------------------------------------------------------------
+
+# systemlevel
+start() { sudo systemctl start "$1"; }
+stop() { sudo systemctl stop "$1"; }
+restart() { sudo systemctl restart "$1"; }
+status() { sudo systemctl status "$1"; }
+enabled() { sudo systemctl enable "$1"; listd; }
+disabled() { sudo systemctl disable "$1"; listd; }
+
+# userlevel
+ustart() { systemctl --user start "$1"; }
+ustop() { systemctl --user stop "$1"; }
+ustatus() { systemctl --user status "$1"; }
+uenabled() { systemctl --user enable "$1"; }
+udisabled() { systemctl --user disable "$1"; }

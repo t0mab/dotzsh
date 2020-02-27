@@ -265,7 +265,8 @@ else
 fi
 # fzf+bat search and preview
 alias preview='fzf --height=50% --layout=reverse --preview="bat --color=always {}"'
-
+#
+alias psrun='ps -m -o %cpu,%mem,command'
 # -------------------------------------------------------------------
 #  Specific os relatives alias
 # -------------------------------------------------------------------
@@ -354,6 +355,9 @@ case $OS in
     alias i3edit="vi ~/.i3/config"
     alias vpnuds="sudo openconnect vpn.u-strasbg.fr"
     alias redshift-strasbourg="redshift -v -l 48.57:7.75 -b 1.0:0.6"
+    # pause/resume dunst notifications
+    alias notifications-pause="notify-send DUNST_COMMAND_PAUSE"
+    alias notifications-resume="notify-send DUNST_COMMAND_RESUME"
     ;;
   'FreeBSD')
     OS='FreeBSD'

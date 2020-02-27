@@ -33,7 +33,7 @@ export LESS='-i -r -s -W -M -PM?f%f - :.?L%L lines, .?ltL\:%lt:.?pB, %pB\% : .?e
 export PAGER='less'
 export EDITOR='vi'
 export VISUAL=$EDITOR
-export BROWSER=chromium
+export BROWSER=brave
 
 #export NODE_PATH=/opt/github/homebrew/lib/node_modules
 #export PYTHONPATH=/usr/local/lib/python2.6/site-packages
@@ -93,7 +93,7 @@ fi
 
 # Default browsers
 if [ -n "$DISPLAY"  ]; then
-  export BROWSER=/usr/bin/chromium
+  export BROWSER=/usr/bin/brave
 else
   export BROWSER=/usr/bin/w3m
 fi
