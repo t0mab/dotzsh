@@ -155,6 +155,13 @@ alias tk='tmux kill-session -t'
 alias tmux='TERM=screen-256color-bce tmux' # force tmux in 256 colors
 
 # -------------------------------------------------------------------
+# Grep relatives
+# -------------------------------------------------------------------
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+# -------------------------------------------------------------------
 # Misc stuff
 # -------------------------------------------------------------------
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
@@ -353,7 +360,7 @@ case $OS in
     alias boot="echo -n Boot Time | pv -qL 10 && systemd-analyze | ccze -A"
     alias units="echo -n Listing Units | pv -qL 10 && systemctl list-units | ccze -A"
     alias i3edit="vi ~/.i3/config"
-    alias vpnuds="sudo openconnect vpn.u-strasbg.fr"
+    alias vpnuds="sudo openconnect -u baguet vpn.u-strasbg.fr"
     alias redshift-strasbourg="redshift -v -l 48.57:7.75 -b 1.0:0.6"
     # pause/resume dunst notifications
     alias notifications-pause="notify-send DUNST_COMMAND_PAUSE"
