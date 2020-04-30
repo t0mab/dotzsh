@@ -13,6 +13,8 @@ if ! zgen saved; then
     zgen load unixorn/autoupdate-zgen
     zgen oh-my-zsh plugins/tmux
     zgen oh-my-zsh plugins/bgnotify
+    zgen load 'wfxr/forgit'
+
 
     # OS specific plugins
     if [[ $CURRENT_OS == 'OSX' ]]; then
