@@ -20,13 +20,13 @@ alias 'bk=cd $OLDPWD'
 alias lh='ls -d .*' # show hidden files/directories only
 #alias lsd='ls -aFhlG'
 alias l='ls -al'
-alias ls='ls -GFh' # Colorize output, add file type indicator, and put sizes in human readable format
+alias ls='ls -GFh'  # Colorize output, add file type indicator, and put sizes in human readable format
 alias ll='ls -GFhl' # Same as above, but in long listing format
 alias lst='ls -AlFhrt'
 alias la="exa -abghl --git --color=automatic"
 alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
-alias 'dus=du -sckx * | sort -nr' #directories sorted by size
-alias dirsize='du -sch' # Show size of current directory
+alias 'dus=du -sckx * | sort -nr'        #directories sorted by size
+alias dirsize='du -sch'                  # Show size of current directory
 alias 'wordy=wc -w * | sort | tail -n10' # sort files in current directory by the number of words they contain
 alias 'filecount=find . -type f | wc -l' # number of files (not directories)
 alias mkdir='mkdir -p -v'
@@ -36,7 +36,7 @@ alias mutt='neomutt'
 # -------------------------------------------------------------------
 if [[ $IS_MAC -eq 1 ]]; then
     alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
-    alias oo='open .' # open current directory in OS X Finder
+    alias oo='open .'                  # open current directory in OS X Finder
     alias 'today=calendar -A 0 -f /usr/share/calendar/calendar.mark | sort'
     alias 'mailsize=du -hs ~/Library/mail'
     alias 'smart=diskutil info disk0 | grep SMART' # display SMART status of hard drive
@@ -51,7 +51,6 @@ if [[ $IS_MAC -eq 1 ]]; then
     # rebuild Launch Services to remove duplicate entries on Open With menu
     alias rebuildopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.fram ework/Support/lsregister -kill -r -domain local -domain system -domain user'
 fi
-
 
 # -------------------------------------------------------------------
 # remote machines
@@ -165,9 +164,9 @@ alias egrep="egrep --color=auto"
 # Misc stuff
 # -------------------------------------------------------------------
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
-alias 'rm=rm -i' # make rm command (potentially) less destructive
-alias 'vi=nvim' # using nvim everywhere
-alias 'vim=nvim' # using nvim everywhere
+alias 'rm=rm -i'                       # make rm command (potentially) less destructive
+alias 'vi=nvim'                        # using nvim everywhere
+alias 'vim=nvim'                       # using nvim everywhere
 alias bcat='pygmentize -O style=monokai -f console256 -g'
 alias ccat='pygmentize -O bg=dark'
 alias c='pygmentize -O style=borland -f console256 -g'
@@ -237,8 +236,8 @@ alias cya='reboot'
 alias kthxbai='halt'
 
 # http://www.zzapper.co.uk/zshtips.html
-alias -g ND='*(/om[1])' 	      # newest directory
-alias -g NF='*(.om[1])' 	      # newest file
+alias -g ND='*(/om[1])' # newest directory
+alias -g NF='*(.om[1])' # newest file
 alias -g NO='&>|/dev/null'
 alias -g P='2>&1 | $PAGER'
 alias -g VV='| vim -R -'
@@ -265,15 +264,14 @@ alias k='kubectl'
 # Alias sonos
 alias couleur3='sonos 192.168.0.62 play_fav "RTS couleur 3"'
 # rep or silver searcher aliases
-if (( $+commands[ag] ))
-then
-    alias ag='ag -S --hidden --ignore=.git --ignore=.svn --ignore=.hg --color-line-number="00;32" --color-path="00;35" --color-match="01;31"'
-    alias gr=ag
-    alias g=ag
-else
-    alias g='grep -iE --color=auto --exclude="*~" --exclude tags'
-    alias gr='grep -IRiE --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --color=auto --exclude="*~" --exclude tags'
-fi
+# if (($ + commands[ag])); then
+#     alias ag='ag -S --hidden --ignore=.git --ignore=.svn --ignore=.hg --color-line-number="00;32" --color-path="00;35" --color-match="01;31"'
+#     alias gr=ag
+#     alias g=ag
+# else
+#     alias g='grep -iE --color=auto --exclude="*~" --exclude tags'
+#     alias gr='grep -IRiE --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --color=auto --exclude="*~" --exclude tags'
+# fi
 # fzf+bat search and preview
 alias preview='fzf --height=50% --layout=reverse --preview="bat --color=always {}"'
 #
@@ -289,9 +287,9 @@ alias so='sonos 192.168.0.62'
 # -------------------------------------------------------------------
 #TODO : us checkos.zsh style for this !!!!!
 
-OS="`uname`"
+OS="$(uname)"
 case $OS in
-  'Linux')
+'Linux')
     OS='Linux'
     alias ls="ls --group-directories-first --color=tty --quoting-style=literal"
     #ubuntu relative
@@ -300,45 +298,45 @@ case $OS in
     alias install-essential="sudo add-apt-repository ppa:ricotz/docky;sudo apt-get update; sudo apt-get install php5-common libapache2-mod-php5 php5-cli git plank vim skype guake chromium-browser git firefox vlc filezilla"
 
     #arch linux relatives
-    alias pacc="sudo pacman -Scc"           # Clean cache - delete all not currently installed package files
-    alias pacexpl="pacman -D --asexp"       # Mark one or more installed packages as explicitly installed
-    alias pacimpl="pacman -D --asdep"       # Mark one or more installed packages as non explicitly installed
-    alias pacin='sudo pacman -S'            # Install specific package(s) from the repositories
-    alias pacins='sudo pacman -U'           # Install specific package not from the repositories but from a file
-    alias paclf="pacman -Ql"                # List all files installed by a given package
-    alias paclo="pacman -Qdt"               # List all packages which are orphaned
-    alias pacloc='pacman -Qi'               # Display information about a given package in the local database
-    alias paclocs='pacman -Qs'              # Search for package(s) in the local database
-    alias pacre='sudo pacman -R'            # Remove the specified package(s), retaining its configuration(s) and required dependencies
-    alias pacrem='sudo pacman -Rns'         # Remove the specified package(s), its configuration(s) and unneeded dependencies
-    alias pacrep='pacman -Si'               # Display information about a given package in the repositories
-    alias pacreps='pacman -Ss'              # Search for package(s) in the repositories
-    alias pacupg='sudo pacman -Syu'         # Synchronize with repositories and then upgrade packages that are out of date on the local system.
+    alias pacc="sudo pacman -Scc"     # Clean cache - delete all not currently installed package files
+    alias pacexpl="pacman -D --asexp" # Mark one or more installed packages as explicitly installed
+    alias pacimpl="pacman -D --asdep" # Mark one or more installed packages as non explicitly installed
+    alias pacin='sudo pacman -S'      # Install specific package(s) from the repositories
+    alias pacins='sudo pacman -U'     # Install specific package not from the repositories but from a file
+    alias paclf="pacman -Ql"          # List all files installed by a given package
+    alias paclo="pacman -Qdt"         # List all packages which are orphaned
+    alias pacloc='pacman -Qi'         # Display information about a given package in the local database
+    alias paclocs='pacman -Qs'        # Search for package(s) in the local database
+    alias pacre='sudo pacman -R'      # Remove the specified package(s), retaining its configuration(s) and required dependencies
+    alias pacrem='sudo pacman -Rns'   # Remove the specified package(s), its configuration(s) and unneeded dependencies
+    alias pacrep='pacman -Si'         # Display information about a given package in the repositories
+    alias pacreps='pacman -Ss'        # Search for package(s) in the repositories
+    alias pacupg='sudo pacman -Syu'   # Synchronize with repositories and then upgrade packages that are out of date on the local system.
     alias pacshow='grep "upgraded" /var/log/pacman.log | tail -n45 | cut -d" " -f5-8'
     # '[r]emove [o]rphans' - recursively remove ALL orphaned packages
     alias pacro="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
     # Additional pacman alias examples
-    alias pacinsd='sudo pacman -S --asdeps'            # Install given package(s) as dependencies
-    alias pacmir='sudo pacman -Syy'                    # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
-    alias pacupd='sudo pacman -Sy && sudo abs'         # Update and refresh the local package and ABS databases against repositories
-    alias sc='sudo systemctl' #
+    alias pacinsd='sudo pacman -S --asdeps'    # Install given package(s) as dependencies
+    alias pacmir='sudo pacman -Syy'            # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
+    alias pacupd='sudo pacman -Sy && sudo abs' # Update and refresh the local package and ABS databases against repositories
+    alias sc='sudo systemctl'                  #
     # Simplified pacman aliases
-    alias pacman-upgrade="sudo pacman -Syu"     # Synchronize with repositories and then upgrade packages that are out of date on the local system.
-    alias pacman-download="pacman -Sw"            # Download specified package(s) as .tar.xz ball
-    alias pacman-install="sudo pacman -S"        # Install specific package(s) from the repositories
-    alias pacman-install-file="sudo pacman -U"       # Install specific package not from the repositories but from a file
-    alias pacman-remove="sudo pacman -R"        # Remove the specified package(s), retaining its configuration(s) and required dependencies
-    alias pacman-purge="sudo pacman -Rns"     # Remove the specified package(s), its configuration(s) and unneeded dependencies
-    alias pacman-repoinfo="pacman -Si"           # Display information about a given package in the repositories
-    alias pacman-search="pacman -Ss"          # Search for package(s) in the repositories
-    alias pacman-dbinfo="pacman -Qi"           # Display information about a given package in the local database
-    alias pacman-dbsearch="pacman -Qs"          # Search for package(s) in the local database
+    alias pacman-upgrade="sudo pacman -Syu"            # Synchronize with repositories and then upgrade packages that are out of date on the local system.
+    alias pacman-download="pacman -Sw"                 # Download specified package(s) as .tar.xz ball
+    alias pacman-install="sudo pacman -S"              # Install specific package(s) from the repositories
+    alias pacman-install-file="sudo pacman -U"         # Install specific package not from the repositories but from a file
+    alias pacman-remove="sudo pacman -R"               # Remove the specified package(s), retaining its configuration(s) and required dependencies
+    alias pacman-purge="sudo pacman -Rns"              # Remove the specified package(s), its configuration(s) and unneeded dependencies
+    alias pacman-repoinfo="pacman -Si"                 # Display information about a given package in the repositories
+    alias pacman-search="pacman -Ss"                   # Search for package(s) in the repositories
+    alias pacman-dbinfo="pacman -Qi"                   # Display information about a given package in the local database
+    alias pacman-dbsearch="pacman -Qs"                 # Search for package(s) in the local database
     alias pacman-list-orphaned="pacman -Qdt"           # List all packages which are orphaned
-    alias pacman-clean-cache="sudo pacman -Scc"       # Clean cache - delete all the package files in the cache
-    alias pacman-list-package-files="pacman -Ql"            # List all files installed by a given package
-    alias pacman-provides-="pacman -Qo"           # Show package(s) owning the specified file(s)
+    alias pacman-clean-cache="sudo pacman -Scc"        # Clean cache - delete all the package files in the cache
+    alias pacman-list-package-files="pacman -Ql"       # List all files installed by a given package
+    alias pacman-provides-="pacman -Qo"                # Show package(s) owning the specified file(s)
     alias pacman-force-installed="pacman -D --asexp"   # Mark one or more installed packages as explicitly installed
-    alias pacman-force-uninstalled="pacman -D --asdep"   # Mark one or more installed packages as non explicitly installed
+    alias pacman-force-uninstalled="pacman -D --asdep" # Mark one or more installed packages as non explicitly installed
     alias update-mirrors="sudo reflector --verbose --latest 40 --number 10 --sort rate --protocol http --save /etc/pacman.d/mirrorlist"
     ### Systemd ###
     alias sdisable=' sudo systemctl disable $@'
@@ -381,14 +379,14 @@ case $OS in
     #alias notifications-toggle="notify-send DUNST_COMMAND_TOGGLE"
     alias notifications-toggle="dunstctl set-paused toggle"
     ;;
-  'FreeBSD')
+'FreeBSD')
     OS='FreeBSD'
     alias ls='ls -G'
     ;;
-  'WindowsNT')
+'WindowsNT')
     OS='Windows'
     ;;
-  'Darwin')
+'Darwin')
     OS='Mac'
 
     #osx specific
@@ -413,11 +411,11 @@ case $OS in
     alias swap_off="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist"
     alias swap_on="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist"
     ;;
-  'SunOS')
+'SunOS')
     OS='Solaris'
     ;;
-  'AIX') ;;
-  *) ;;
+'AIX') ;;
+*) ;;
 esac
 
- alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP1 --brightness "${val}"'
+alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP1 --brightness "${val}"'

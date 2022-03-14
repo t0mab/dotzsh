@@ -66,8 +66,6 @@ if [[ -n "$BENCHMARK" ]] ;
     then zprof > "$HOME/.zsh/.zgen_benchmark"
 fi
 
-
-
 zstyle ':notify:*' error-title "#fail background cmd"
 zstyle ':notify:*' success-title "#success background cmd"
 neofetch && echo ""

@@ -247,5 +247,5 @@ _kubectl()
 
 # don't run the completion function when being source-ed or eval-ed
 if [ "$funcstack[1]" = "_kubectl" ]; then
-	_kubectl
+    _kubectl
 fi

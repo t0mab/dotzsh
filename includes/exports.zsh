@@ -205,5 +205,3 @@ export KUBECONFIG=~/.kube/config
 # Node shit
 source /usr/share/nvm/init-nvm.sh
 #export npm_config_prefix="$HOME/.local"
-
-

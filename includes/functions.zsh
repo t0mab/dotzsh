@@ -287,14 +287,11 @@ function f() {
     find . -iregex ".*$@.*" -printf '%P\0' | xargs -r0 ls --color=auto -1d
 }
 
-
 # fif - find in file usage: fif <searchTerm>
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 }
-
-
 
 # -------------------------------------------------------------------
 # create tar archive
@@ -634,7 +631,7 @@ yzf() {
     fzf --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-yzf$pos" \
       --preview-window=60%,border-left \
       --bind="double-click:execute(xdg-open 'https://archlinux.org/packages/{$pos}'),alt-enter:execute(xdg-open 'https://aur.archlinux.org/packages?K={$pos}&SB=p&SO=d&PP=100')" \
-       "$@" | cut -f$pos | xargs
+      "$@" | cut -f$pos | xargs
 }
 
 # Dev note: print -s adds a shell history entry
@@ -668,8 +665,6 @@ yar() {
       eval "$cmd"
   fi
 }
-
-
 
 # -------------------------------------------------------------------
 # visual cp
@@ -933,7 +928,7 @@ gbr() {
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+        fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -1152,7 +1147,7 @@ brave_history() {
   cp -f "$brave_history" /tmp/h
   sqlite3 -separator $sep /tmp/h \
     "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
+    from urls order by last_visit_time desc" |
   awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
   fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
 }
@@ -1171,8 +1166,8 @@ brave_bookmark() {
 # cdb - shell bookmark
 # see ~/.cdb_path
 cdb() {
-   local dest_dir=$(cdscuts_glob_echo | fzf )
-   if [[ $dest_dir != '' ]]; then
+    local dest_dir=$(cdscuts_glob_echo | fzf )
+    if [[ $dest_dir != '' ]]; then
       cd "$dest_dir"
-   fi
+    fi
 }
