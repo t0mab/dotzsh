@@ -82,7 +82,7 @@ function myip() {
     ifconfig eno0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "eno0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
     ifconfig eno0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "eno0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
     ifconfig eno1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "eno1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
-    ifconfig eno1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "eno1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'    
+    ifconfig eno1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "eno1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
     ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
     ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
 }
@@ -93,7 +93,7 @@ function myip() {
 function s() { pwd > ~/.save_dir ; }
 function i() { cd "$(cat ~/.save_dir)" ; }
 
-# Tmux tool
+# tm - Tmux tool
 tm()
 {
     if [ "$1" ];
@@ -103,6 +103,14 @@ tm()
         tmux ls | sed 's/:.*//'
     return
     fi
+}
+
+# tms - select tmux session with fzf
+tms() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
 }
 
 # -------------------------------------------------------------------
@@ -278,6 +286,15 @@ function man() {
 function f() {
     find . -iregex ".*$@.*" -printf '%P\0' | xargs -r0 ls --color=auto -1d
 }
+
+
+# fif - find in file usage: fif <searchTerm>
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+
 
 # -------------------------------------------------------------------
 # create tar archive
@@ -499,6 +516,12 @@ alarm() {
     echo "timer set for $N"
 }
 
+reminder() { ## 2021-05-30
+  echo "DISPLAY=:0.0 notify-send \
+    -t 300000 'Reminder' '$2'" | \
+      at -M "$1" 2>/dev/null
+} #note
+
 convertmpeg2mov() {
     for i in *.MP4;
     do name=`echo $i | cut -d'.' -f1`;
@@ -590,10 +613,7 @@ multidl() {
     cat $1 | parallel -j30 --retries 10 --bar youtube-dl {}
 }
 
-# -------------------------------------------------------------------
-# Maj archlinux
-#
-# -------------------------------------------------------------------
+# archmaj - update arch
 archmaj() {
     # get news from archlinux fr
     curl https://archlinux.fr/feed -s|awk '/<title>/ {z=substr($0,10,length($0)-17)} /<pubDate>/ {print z "||" $2" " $3 " " $4} '
@@ -605,6 +625,51 @@ archmaj() {
     sudo fwupdmgr refresh               # get firmware updates
     sudo fwupdmgr update                # install/schedule boot firmware updates if any
 }
+
+# yzf - Helper function to integrate yay and fzf
+yzf() {
+  pos=$1
+  shift
+  sed "s/ /\t/g" |
+    fzf --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-yzf$pos" \
+      --preview-window=60%,border-left \
+      --bind="double-click:execute(xdg-open 'https://archlinux.org/packages/{$pos}'),alt-enter:execute(xdg-open 'https://aur.archlinux.org/packages?K={$pos}&SB=p&SO=d&PP=100')" \
+       "$@" | cut -f$pos | xargs
+}
+
+# Dev note: print -s adds a shell history entry
+
+# List installable packages into fzf and install selection
+yas() {
+  cache_dir="/tmp/yas-$USER"
+  test "$1" = "-y" && rm -rf "$cache_dir" && shift
+  mkdir -p "$cache_dir"
+  preview_cache="$cache_dir/preview_{2}"
+  list_cache="$cache_dir/list"
+  { test "$(cat "$list_cache$@" | wc -l)" -lt 50000 && rm "$list_cache$@"; } 2>/dev/null
+  pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; yay --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
+    yzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || yay --color always -Si {2} | tee $preview_cache")
+  if test -n "$pkg"
+    then echo "Installing $pkg..."
+      cmd="yay -S $pkg"
+      print -s "$cmd"
+      eval "$cmd"
+      rehash
+  fi
+}
+# List installed packages into fzf and remove selection
+# Tip: use -e to list only explicitly installed packages
+yar() {
+  pkg=$(yay --color=always -Q "$@" | yzf 1 --tiebreak=length --preview="yay --color always -Qli {1}")
+  if test -n "$pkg"
+    then echo "Removing $pkg..."
+      cmd="yay -R --cascade --recursive $pkg"
+      print -s "$cmd"
+      eval "$cmd"
+  fi
+}
+
+
 
 # -------------------------------------------------------------------
 # visual cp
@@ -748,18 +813,13 @@ nmap_local_scan()
   nmap -Ap 80,8000,8080,443,8443,7443,7070,7000,22,23,21 10.5.1.0/24 192.168.0.0/24 192.168.1.0/24
 }
 
-
-
-# -------------------------------------------------------------------
-# Check cors
-# -------------------------------------------------------------------
-cors()
+localhost_get()
 {
 curl -H "Access-Control-Request-Method: GET" -H "Origin: http://localhost" --head $1
 }
 
 # -------------------------------------------------------------------
-# Systemd relatives functions 
+# Systemd relatives functions
 # -------------------------------------------------------------------
 
 # systemlevel
@@ -776,3 +836,343 @@ ustop() { systemctl --user stop "$1"; }
 ustatus() { systemctl --user status "$1"; }
 uenabled() { systemctl --user enable "$1"; }
 udisabled() { systemctl --user disable "$1"; }
+
+# cpu
+cpufreq() { watch -n 5 "lscpu | grep MHz"; }
+
+# jq
+#
+jsondiff() {
+diff <(jq -S . $1) <(jq -S . $2)
+
+}
+
+# initprojet2 -
+# TODO: check if still usefull
+function initproject2 () {
+
+    # TODO: be sure those variables are required by vitualenv* stuff
+
+    declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.4}
+    declare -g PYTHON_PATH=
+    declare -g PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
+
+    # TODO: split this message up: make it readable
+
+    test -z $1 && {
+            echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3 -d 1.8.4 "
+            return 1
+    }
+
+    local PROJECT_NAME=$1
+    local DJANGO_VERSION=${DJANGO_VERSION:=Django>1.8,<1.9}
+
+    local ARGS=`getopt --long -o "p:d:" "$@"`
+    eval set -- "$ARGS"
+    while true
+    do
+            case "$1" in
+                    (-p) PYTHON_VERSION=$2
+                            shift 2 ;;
+                    (-d) DJANGO_VERSION=Django==$2
+                            shift 2 ;;
+                    (*) break ;;
+            esac
+    done
+
+    mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
+    workon $PROJECT_NAME
+    test -n ${VIRTUAL_ENV-} || {
+        echo no env, no gain >&2
+        return 1
+    }
+
+    pip install "$DJANGO_VERSION"
+
+
+    django-admin startproject --template=/home/toma/Dev/k8s/django-drybones-k8s.zip --extension=html,rst,ini,yaml,yml,coveragerc --name=Makefile $PROJECT_NAME
+    #django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+    cd $PROJECT_NAME
+    setvirtualenvproject $VIRTUAL_ENV $PWD
+    echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
+    echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
+    workon $PROJECT_NAME
+    chmod +x manage.py
+    pip install -r requirements/dev.txt
+}
+
+# venvactivate - Activate venv with fzf
+function venvactivate() {
+  local selected_env
+  selected_env=$(ls ~/.virtualenvs/ | fzf)
+
+  if [ -n "$selected_env" ]; then
+    source "$HOME/.virtualenvs/$selected_env/bin/activate"
+  fi
+}
+
+# delete-branches - Remove branches
+function delete-branches() {
+  git branch |
+    grep --invert-match '\*' |
+    cut -c 3- |
+    fzf --multi --preview="git log {}" |
+    xargs --no-run-if-empty git branch --delete --force
+}
+
+# gs2 - git status
+function gs2() {
+  git -c color.status=always status --short |
+  fzf --height 50% --border --ansi --multi --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+  cut -c4- | sed 's/.* -> //'
+}
+
+# fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+gbr() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# gcoc - checkout git commit
+gcoc() {
+  local commits commit
+  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# gshow_preview - git commit browser with previews
+gshow_preview() {
+    glNoGraph |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --ansi --preview="$_viewGitLogLine" \
+                --header "enter to view, alt-y to copy hash" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+}
+
+# gstash - easier way to deal with stashes
+# type gstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+gstash() {
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b);
+  do
+    mapfile -t out <<< "$out"
+    q="${out[0]}"
+    k="${out[1]}"
+    sha="${out[-1]}"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "stash-$sha" $sha
+      break;
+    else
+      git stash show -p $sha
+    fi
+  done
+}
+
+# fgst - pick files from `git status -s`
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+gstf() {
+  # "Nothing to see here, move along"
+  is_in_git_repo || return
+
+  local cmd="${FZF_CTRL_T_COMMAND:-"command git status -s"}"
+
+  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf -m "$@" | while read -r item; do
+    echo "$item" | awk '{print $2}'
+  done
+  echo
+}
+
+# nuke - Kill root process
+nuke() {
+  local pid
+  pid=$(ps -ef | grep -v ^root | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+# fkill - kill processes
+fkill() {
+    local pid
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi
+
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
+
+
+# ks - Read k8s config context
+function kc() {
+  kubectl config get-contexts | tail -n +2 | fzf | cut -c 2- | awk '{print $1}' | xargs kubectl config use-context
+}
+
+
+function update_kubeconfigs() {
+  [ ! -d "$HOME/.kube/config.d" ] && mkdir $HOME/.kube/config.d -p -v
+  # Will run only if there are new files in the config directory
+  local new_files=$(find $HOME/.kube/config.d/ -newer $HOME/.kube/config -type f | wc -l)
+  if [[ $new_files -ne "0" ]]; then
+    local current_context=$(kubectl config current-context) # Save last context
+    local kubeconfigfile="$HOME/.kube/config"               # New config file
+    cp -a $kubeconfigfile "${kubeconfigfile}_$(date +"%Y%m%d%H%M%S")"  # Backup
+    local kubeconfig_files="$kubeconfigfile:$(ls $HOME/.kube/config.d/* | tr '\n' ':')"
+    KUBECONFIG=$kubeconfig_files kubectl config view --merge --flatten > "$HOME/.kube/tmp"
+    mv "$HOME/.kube/tmp" $kubeconfigfile && chmod 600 $kubeconfigfile
+    export KUBECONFIG=$kubeconfigfile
+    kubectl config use-context $current_context --namespace=default
+  fi
+}
+
+# This will call each time you source .bashrc, remove it if you want to call it manually each time
+update_kubeconfigs
+
+
+# json - JSON file with jq
+function json {
+  jq -C . $1 | bat
+}
+
+# md2pdf - Convert md to pdf
+function md2pdf {
+  pandoc -s --toc --number-sections -t latex -o $2 $1
+}
+
+# history-remove - Remove line from history
+# Accepts one history line number as argument.
+# Alternatively, you can do `dc -1` to remove the last line.
+function history_remove () {
+  # Prevent the specified history line from being saved.
+  local HISTORY_IGNORE="${(b)$(fc -ln $1 $1)}"
+
+  # Write out the history to file, excluding lines that match `$HISTORY_IGNORE`.
+  fc -W
+
+  # Dispose of the current history and read the new history from file.
+  fc -p $HISTFILE $HISTSIZE $SAVEHIST
+
+  # TA-DA!
+  print "Deleted '$HISTORY_IGNORE' from history."
+}
+
+#
+# Docker relatives
+#
+
+# da - Select a docker container to start and attach to
+function da() {
+  local cid
+  cid=$(docker ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
+
+  [ -n "$cid" ] && docker start "$cid" && docker attach "$cid"
+}
+
+# ds - Select a running docker container to stop
+function ds() {
+  local cid
+  cid=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
+
+  [ -n "$cid" ] && docker stop "$cid"
+}
+
+# Select a docker container to remove
+# function drm() {
+#   local cid
+#   cid=$(docker ps -a | sed 1d | fzf -q "$1" | awk '{print $1}')
+
+#   [ -n "$cid" ] && docker rm "$cid"
+# }
+# drm - Select a docker container to remove but allows multi selection:
+function drm() {
+  docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r docker rm
+}
+
+# drmi - Select a docker image or images to remove
+function drmi() {
+  docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r docker rmi
+}
+
+# fzf specific
+_fzf_complete_myssh() {
+  _fzf_complete_ssh "$@"
+}
+
+# vs - Vagrant machines list
+vs(){
+  #List all vagrant boxes available in the system including its status, and try to access the selected one via ssh
+  cd $(cat ~/.vagrant.d/data/machine-index/index | jq '.machines[] | {name, vagrantfile_path, state}' | jq '.name + "," + .state  + "," + .vagrantfile_path'| sed 's/^"\(.*\)"$/\1/'| column -s, -t | sort -rk 2 | fzf | awk '{print $3}'); vagrant ssh
+}
+
+# fns - Run npm script (requires jq)
+fns() {
+  local script
+  script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf) && npm run $(echo "$script")
+}
+
+# brave_history - Browse chrome/chromium/brave history
+brave_history() {
+  local cols sep google_history open
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+
+  if [ "$(uname)" = "Darwin" ]; then
+    google_history="$HOME/Library/Application Support/BraveSoftware/Brave-Browser/Default//History"
+    open=open
+  else
+    # TODO: add chrome/chromium only brave for now
+    brave_history="$HOME/.config/BraveSoftware/Brave-Browser/Default/History"
+    open=xdg-open
+  fi
+  cp -f "$brave_history" /tmp/h
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
+}
+
+# brave_bookmark - browse brave bookmarks
+brave_bookmark() {
+  local bookmarks_path="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
+  local jq_script='def ancestors: while(. | length >= 2; del(.[-1,-2])); . as $in | paths(.url?) as $key | $in | getpath($key) | {name,url, path: [$key[0:-2] | ancestors as $a | $in | getpath($a) | .name?] | reverse | join("/") } | .path + "/" + .name + "\t" + .url'
+  jq -r $jq_script < "$bookmarks_path" \
+  | sed -E $'s/(.*)\t(.*)/\\1\t\x1b[36m\\2\x1b[m/g' \
+  | fzf --ansi \
+  | cut -d$'\t' -f2 \
+  | xargs open
+}
+
+# cdb - shell bookmark
+# see ~/.cdb_path
+cdb() {
+   local dest_dir=$(cdscuts_glob_echo | fzf )
+   if [[ $dest_dir != '' ]]; then
+      cd "$dest_dir"
+   fi
+}

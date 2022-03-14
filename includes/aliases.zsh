@@ -18,7 +18,7 @@ alias 'bk=cd $OLDPWD'
 # directory information & management
 # -------------------------------------------------------------------
 alias lh='ls -d .*' # show hidden files/directories only
-alias lsd='ls -aFhlG'
+#alias lsd='ls -aFhlG'
 alias l='ls -al'
 alias ls='ls -GFh' # Colorize output, add file type indicator, and put sizes in human readable format
 alias ll='ls -GFhl' # Same as above, but in long listing format
@@ -166,7 +166,8 @@ alias egrep="egrep --color=auto"
 # -------------------------------------------------------------------
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias 'rm=rm -i' # make rm command (potentially) less destructive
-alias 'vi=vim' # using vim everywhere
+alias 'vi=nvim' # using nvim everywhere
+alias 'vim=nvim' # using nvim everywhere
 alias bcat='pygmentize -O style=monokai -f console256 -g'
 alias ccat='pygmentize -O bg=dark'
 alias c='pygmentize -O style=borland -f console256 -g'
@@ -185,7 +186,6 @@ alias t='todo.sh -d ~/.todo/config'
 alias turn-off-screen='xset dpms force off' # force to turn off screens
 # Weather
 alias weatherfc='echo -n "Meteo de la semaine à Strasbourg  " | pv -qL 20 && weatherman -x "Strasbourg,France" | ccze -A'
-alias weather='weather.py'
 alias urldecode='python2.7 -c "import sys, urllib as ul; \
         print ul.unquote_plus(sys.argv[1])"'
 alias urlencode='python2.7 -c "import sys, urllib as ul; \
@@ -208,7 +208,7 @@ alias srl='surfraw slinuxdoc'
 alias dldir="wget -c -nd -r -l 0 -np"
 alias aria2c="aria2c --console-log-level=error --check-integrity --bt-hash-check-seed=false -c"
 alias wget-all='wget --user-agent=Mozilla -e robots=off --content-disposition --mirror --convert-links -E -K -N -r -c'
-alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3"
+alias ytmp3="youtube-dl -f bestaudio --extract-audio --audio-format mp3 --add-metadata --embed-thumbnail"
 alias '?=whence -ca' # print info about a command, alias, function..
 # network
 #alias myip='curl -s icanhazip.com'
@@ -260,6 +260,10 @@ alias vitmux='vi ~/.tmux.conf'
 alias vii3="vi ~/.config/i3/config"
 # docker
 alias purge_docker="docker ps -qa | xargs docker rm -f ; docker images -qa | xargs docker rmi -f"
+# k8z
+alias k='kubectl'
+# Alias sonos
+alias couleur3='sonos 192.168.0.62 play_fav "RTS couleur 3"'
 # rep or silver searcher aliases
 if (( $+commands[ag] ))
 then
@@ -274,6 +278,12 @@ fi
 alias preview='fzf --height=50% --layout=reverse --preview="bat --color=always {}"'
 #
 alias psrun='ps -m -o %cpu,%mem,command'
+# mount work ad
+alias unistra_admount='sudo mount -t cifs -o username=baguet //vfiler-ad-pers.ad.unistra.fr/baguet /mnt/windows_share'
+alias unistra_resignkey="curl -f -k -H 'Content-Type: application/json' -XPOST --user baguet https://tower.di.unistra.fr/api/v2/job_templates/48/launch/"
+# Sonos
+alias couleur3='sonos 192.168.0.62 play_fav "RTS couleur 3"'
+alias so='sonos 192.168.0.62'
 # -------------------------------------------------------------------
 #  Specific os relatives alias
 # -------------------------------------------------------------------
@@ -308,7 +318,6 @@ case $OS in
     # '[r]emove [o]rphans' - recursively remove ALL orphaned packages
     alias pacro="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
     # Additional pacman alias examples
-    #alias archmaj='~/Scripts/News.sh  && yaourt -Syua'
     alias pacinsd='sudo pacman -S --asdeps'            # Install given package(s) as dependencies
     alias pacmir='sudo pacman -Syy'                    # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
     alias pacupd='sudo pacman -Sy && sudo abs'         # Update and refresh the local package and ABS databases against repositories
@@ -330,6 +339,7 @@ case $OS in
     alias pacman-provides-="pacman -Qo"           # Show package(s) owning the specified file(s)
     alias pacman-force-installed="pacman -D --asexp"   # Mark one or more installed packages as explicitly installed
     alias pacman-force-uninstalled="pacman -D --asdep"   # Mark one or more installed packages as non explicitly installed
+    alias update-mirrors="sudo reflector --verbose --latest 40 --number 10 --sort rate --protocol http --save /etc/pacman.d/mirrorlist"
     ### Systemd ###
     alias sdisable=' sudo systemctl disable $@'
     alias senable='sudo systemctl enable $@'
@@ -359,12 +369,17 @@ case $OS in
     alias blame="systemd-analyze blame | ccze -A"
     alias boot="echo -n Boot Time | pv -qL 10 && systemd-analyze | ccze -A"
     alias units="echo -n Listing Units | pv -qL 10 && systemctl list-units | ccze -A"
-    alias i3edit="vi ~/.i3/config"
-    alias vpnuds="sudo openconnect -u baguet vpn.u-strasbg.fr"
+    alias i3edit="vi ~/.config/i3/config"
+    alias vpnudscisco="sudo openconnect -u baguet vpn.u-strasbg.fr"
+    alias vpnuds="sudo openfortivpn -u baguet vpn.unistra.fr"
     alias redshift-strasbourg="redshift -v -l 48.57:7.75 -b 1.0:0.6"
     # pause/resume dunst notifications
-    alias notifications-pause="notify-send DUNST_COMMAND_PAUSE"
-    alias notifications-resume="notify-send DUNST_COMMAND_RESUME"
+    #alias notifications-pause="notify-send DUNST_COMMAND_PAUSE"
+    alias notifications-pause="dunstctl set-paused true"
+    #alias notifications-resume="notify-send DUNST_COMMAND_RESUME"
+    alias notifications-resume="dunstctl set-paused false"
+    #alias notifications-toggle="notify-send DUNST_COMMAND_TOGGLE"
+    alias notifications-toggle="dunstctl set-paused toggle"
     ;;
   'FreeBSD')
     OS='FreeBSD'
@@ -404,3 +419,5 @@ case $OS in
   'AIX') ;;
   *) ;;
 esac
+
+ alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP1 --brightness "${val}"'

@@ -14,6 +14,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/tmux
     zgen oh-my-zsh plugins/bgnotify
     zgen load 'wfxr/forgit'
+    zgen oh-my-zsh plugins/kubectl
 
 
     # OS specific plugins

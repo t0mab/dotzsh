@@ -36,7 +36,7 @@ POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND='015'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='black'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='148'
 POWERLEVEL9K_SHOW_CHANGESET=true
-
+HIST_STAMPS="mm/dd/yyyy"
 source /usr/share/autoenv/activate.sh
 
 
@@ -66,9 +66,12 @@ if [[ -n "$BENCHMARK" ]] ;
     then zprof > "$HOME/.zsh/.zgen_benchmark"
 fi
 
+
+
 zstyle ':notify:*' error-title "#fail background cmd"
 zstyle ':notify:*' success-title "#success background cmd"
-
-echo "Bonne fête : " && saintdujour.sh
+neofetch && echo ""
+echo "Bonne fête : " && saintdujour
 
 source /home/toma/.config/broot/launcher/bash/br
+source /etc/profile.d/vte.sh

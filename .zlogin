@@ -33,10 +33,10 @@ if (( $+commands[fortune] )); then
 fi
 
 # Print ephemerid.
-if (( $+commands[saintdujour.sh] )); then
+if (( $+commands[saintdujour] )); then
   if [[ -t 0 || -t 1 ]]; then
     print "Bonne fête :"
-    saintdujour.sh
+    saintdujour
     print
   fi
 fi

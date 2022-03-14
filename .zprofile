@@ -77,4 +77,17 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 #export TERMINAL=urxvtc
 export TERMINAL=termite
 
+#eval $(systemctl --user show-environment | grep SSH_AUTH_SOCK)
+#export SSH_AUTH_SOCK
+
+
+#case "$DESKTOP_SESSION" in
+#    i3)
+#        export $(gnome-keyring-daemon --start)
+#        ;;
+#    sway)
+#        export $(gnome-keyring-daemon --start)
+#        ;;
+#esac
+
 #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
